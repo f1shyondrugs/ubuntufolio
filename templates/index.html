@@ -439,6 +439,7 @@
             align-items: center;
             cursor: move;
             border-radius: 8px 8px 0 0;
+            user-select: none;
         }
 
         .window-title {
@@ -712,7 +713,7 @@
             opacity: 0;
             visibility: hidden;
             transition: all 0.3s ease;
-            z-index: 1001;
+            z-index: 10001;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
 
@@ -801,126 +802,21 @@
         .system-indicators ion-icon:hover {
             background-color: #2c2c2c;
         }
-    </style>
-</head>
-<body>
-<div id="startup-button" style="
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 20px 40px;
-    background: black;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 18px;
-    cursor: pointer;
-    font-family: Ubuntu, sans-serif;
-    z-index: 10004;
-">
-    <ion-icon name="power"></ion-icon>
-</div>
-    
 
-    <div class="startup-sequence">
-        <div class="boot-log"></div>
-    </div>
-    
-    <div class="ubuntu-splash">
-        <img src="/static/ubuntu-logo.png" alt="Ubuntu" style="width: 200px;">
-        <div class="loading-dots">
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-        </div>
-    </div>
-    
-    <div class="login-screen">
-        <div class="login-container">
-            <div class="user-avatar">
-                <ion-icon name="person"></ion-icon>
-            </div>
-            <h2>Das_F1sHy312</h2>
-            <p>Click to login</p>
-            <button class="login-button">Login</button>
-        </div>
-    </div>
 
-    <div class="desktop-container">
-        <div class="control-center">
-            <div class="quick-settings">
-                <div class="quick-toggle" data-feature="wifi">
-                    <ion-icon name="wifi"></ion-icon>
-                    <span>Wi-Fi</span>
-                </div>
-                <div class="quick-toggle" data-feature="bluetooth">
-                    <ion-icon name="bluetooth"></ion-icon>
-                    <span>Bluetooth</span>
-                </div>
-                
-                <div class="quick-toggle" data-feature="nightlight">
-                    <ion-icon name="moon"></ion-icon>
-                    <span>Night Light</span>
-                </div>
-                <div class="quick-toggle" data-feature="darkmode">
-                    <ion-icon name="contrast"></ion-icon>
-                    <span>Dark Mode</span>
-                </div>
-                <div class="quick-toggle" data-feature="dnd">
-                    <ion-icon name="notifications-off"></ion-icon>
-                    <span>Do Not Disturb</span>
-                </div>
-            </div>
+        .brightness-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.1);
+            z-index: 100000;
+            pointer-events: none;
             
-            <div class="slider-control">
-                <ion-icon name="sunny"></ion-icon>
-                <input type="range" class="slider brightness-slider" min="0" max="100" value="${systemState.brightness}">
-            </div>
-            
-            <div class="slider-control">
-                <ion-icon name="volume-high"></ion-icon>
-                <input type="range" class="slider volume-slider" min="0" max="100" value="${systemState.volume}">
-            </div>
-        </div>
+        }
 
-        <div class="apps-overview">
-            <div class="close-overview">
-                <ion-icon name="close"></ion-icon>
-            </div>
-            <div class="search-bar">
-                <ion-icon name="search"></ion-icon>
-                <input type="text" placeholder="Type to search...">
-            </div>
-            <div class="apps-grid">
-                <div class="app-item" data-window="about">
-                    <ion-icon name="person"></ion-icon>
-                    <span>About</span>
-                </div>
-                <div class="app-item" data-window="projects">
-                    <ion-icon name="code-slash"></ion-icon>
-                    <span>Projects</span>
-                </div>
-                <div class="app-item" data-window="contact">
-                    <ion-icon name="mail"></ion-icon>
-                    <span>Contact</span>
-                </div>
-                <div class="app-item" data-window="blog">
-                    <ion-icon name="newspaper"></ion-icon>
-                    <span>Blog</span>
-                </div>
-                <div class="app-item" data-window="resume">
-                    <ion-icon name="document-text"></ion-icon>
-                    <span>Resume</span>
-                </div>
-            </div>
-        </div>
-        
-        <style>
-
-    .window {
+        .window {
         position: fixed;
         background: rgba(0, 0, 0, 0.85);
         backdrop-filter: blur(10px);
@@ -1066,7 +962,241 @@
         .apps-overview.active .app-item:nth-child(3) { transition-delay: 0.2s; }
         .apps-overview.active .app-item:nth-child(4) { transition-delay: 0.25s; }
         .apps-overview.active .app-item:nth-child(5) { transition-delay: 0.3s; }
-        </style>
+        .apps-overview.active .app-item:nth-child(6) { transition-delay: 0.35s; }
+
+
+
+
+        .spotifywidget {
+            position: absolute;
+            top: 50px;
+            right: 50px;
+            width: 300px;
+            height: auto;
+            background: rgba(25, 20, 20, 0.95);
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            overflow: hidden;
+            padding-bottom: 3px;
+        }
+
+
+
+        .spotifywidget:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 36px rgba(0, 0, 0, 0.4);
+        }
+
+        .spotifywidget-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .spotifywidget-title {
+            font-size: 14px;
+            font-weight: 500;
+            color: #1DB954;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .spotifywidget-content {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+        }
+
+        .spotifywidget-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            background-size: cover;
+            background-position: center;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            transition-duration: 0.3s;
+        }
+
+        .spotifywidget-image:hover {
+            scale: 1.05;
+            transform: rotate(-5deg);
+        }
+
+        .song-info {
+            flex: 1;
+            color: white;
+        }
+
+        .song-title {
+            font-weight: 500;
+            font-size: 14px;
+            margin-bottom: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 180px;
+        }
+
+        .song-artist {
+            font-size: 12px;
+            opacity: 0.7;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 180px;
+        }
+
+        .spotify-login {
+            color: #1DB954;
+            text-decoration: none;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .spotify-login:hover {
+            text-decoration: underline;
+        }
+
+        .not-playing {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 13px;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="brightness-overlay"></div>
+
+<div id="startup-button" style="
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px 40px;
+    background: black;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    cursor: pointer;
+    font-family: Ubuntu, sans-serif;
+    z-index: 10004;
+">
+    <ion-icon name="power"></ion-icon>
+</div>
+    
+
+    <div class="startup-sequence">
+        <div class="boot-log"></div>
+    </div>
+    
+    <div class="ubuntu-splash">
+        <img src="/static/ubuntu-logo.png" alt="Ubuntu" style="width: 200px;">
+        <div class="loading-dots">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+    </div>
+    
+    <div class="login-screen">
+        <div class="login-container">
+            <div class="user-avatar">
+                <ion-icon name="person"></ion-icon>
+            </div>
+            <h2>Das_F1sHy312</h2>
+            <p>Click to login</p>
+            <button class="login-button">Login</button>
+        </div>
+    </div>
+
+    <div class="desktop-container">
+        <div class="control-center">
+            <div class="quick-settings">
+                <div class="quick-toggle" data-feature="wifi">
+                    <ion-icon name="wifi"></ion-icon>
+                    <span>Wi-Fi</span>
+                </div>
+                <div class="quick-toggle" data-feature="bluetooth">
+                    <ion-icon name="bluetooth"></ion-icon>
+                    <span>Bluetooth</span>
+                </div>
+                
+                <div class="quick-toggle" data-feature="nightlight">
+                    <ion-icon name="moon"></ion-icon>
+                    <span>Night Light</span>
+                </div>
+                <div class="quick-toggle" data-feature="darkmode">
+                    <ion-icon name="contrast"></ion-icon>
+                    <span>Dark Mode</span>
+                </div>
+                <div class="quick-toggle" data-feature="dnd">
+                    <ion-icon name="notifications-off"></ion-icon>
+                    <span>Do Not Disturb</span>
+                </div>
+            </div>
+            
+            <div class="slider-control">
+                <ion-icon name="sunny"></ion-icon>
+                <input type="range" class="slider brightness-slider" min="0" max="100" value="${systemState.brightness}">
+            </div>
+            
+            <div class="slider-control">
+                <ion-icon name="volume-high"></ion-icon>
+                <input type="range" class="slider volume-slider" min="0" max="100" value="${systemState.volume}">
+            </div>
+        </div>
+
+        <div class="apps-overview">
+            <div class="close-overview">
+                <ion-icon name="close"></ion-icon>
+            </div>
+            <div class="search-bar">
+                <ion-icon name="search"></ion-icon>
+                <input type="text" placeholder="Type to search...">
+            </div>
+            <div class="apps-grid">
+                <div class="app-item" data-window="about">
+                    <ion-icon name="person"></ion-icon>
+                    <span>About</span>
+                </div>
+                <div class="app-item" data-window="projects">
+                    <ion-icon name="code-slash"></ion-icon>
+                    <span>Projects</span>
+                </div>
+                <div class="app-item" data-window="contact">
+                    <ion-icon name="mail"></ion-icon>
+                    <span>Contact</span>
+                </div>
+                <div class="app-item" data-window="blog">
+                    <ion-icon name="newspaper"></ion-icon>
+                    <span>Blog</span>
+                </div>
+                <div class="app-item" data-window="resume">
+                    <ion-icon name="document-text"></ion-icon>
+                    <span>Resume</span>
+                </div>
+                <div class="app-item" data-window="browser">
+                    <ion-icon name="globe"></ion-icon>
+                    <span>Browser</span>
+                </div>
+                
+            </div>
+        </div>
+        
+
         <div class="dock">
             <div class="dock-icon" data-tooltip="Menu"><ion-icon name="menu"></ion-icon></div>
             <div class="dock-icon" data-window="about" data-tooltip="About"><ion-icon name="person"></ion-icon></div>
@@ -1074,6 +1204,7 @@
             <div class="dock-icon" data-window="contact" data-tooltip="Contact"><ion-icon name="mail"></ion-icon></div>
             <div class="dock-icon" data-window="blog" data-tooltip="Blog"><ion-icon name="newspaper"></ion-icon></div>
             <div class="dock-icon" data-window="resume" data-tooltip="Resume"><ion-icon name="document-text"></ion-icon></div>
+            <div class="dock-icon" data-window="browser" data-tooltip="Browser"><ion-icon name="globe"></ion-icon></div>
         </div>
 
         <div class="top-bar">
@@ -1094,6 +1225,26 @@
                 </div>
             </div>
         </div>
+
+<div class="spotifywidget" id="spotifywidget">
+    <div class="spotifywidget-header">
+        <div class="spotifywidget-title">
+            <ion-icon name="musical-notes"></ion-icon>
+            Spotify
+        </div>
+        <div style="color: white;" id="spotify-user"></div>
+    </div>
+    <div id="spotify-content">
+        <div class="not-playing">
+            Not connected to Spotify
+            <br>
+            <a href="/spotify-login" class="spotify-login">
+                <ion-icon name="log-in"></ion-icon>
+                Connect
+            </a>
+        </div>
+    </div>
+</div>
 
         <div class="window" id="projects" style="width: 800px; height: 600px; top: 50px; left: 100px;">
             <div class="window-header">
@@ -1234,6 +1385,17 @@
                             <span class="skill-tag">Java</span>
                             <span class="skill-tag">Lua</span>
                         </div>
+                        <div class="social-links">
+                            <a href="#" class="social-link" onclick="openInBrowser('https://github.com/f1shyondrugs'); return false;">
+                                <ion-icon name="logo-github"></ion-icon>
+                            </a>
+                            <a href="#" class="social-link" onclick="openInBrowser('https://www.youtube.com/@f1shyondrugs'); return false;">
+                                <ion-icon name="logo-youtube"></ion-icon>
+                            </a>
+                            <a href="#" class="social-link" onclick="openInBrowser('https://www.twitch.tv/f1shy312'); return false;">
+                                <ion-icon name="logo-twitch"></ion-icon>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1268,11 +1430,6 @@
                     <button type="submit" class="form-button">Send Message</button>
                     <p style="font-size: small;">(This is just a demo)</p>
                 </form>
-                <div class="social-links">
-                    <a href="https://github.com/f1shyondrugs" class="social-link"><ion-icon name="logo-github"></ion-icon></a>
-                    <a href="#" class="social-link"><ion-icon name="logo-linkedin"></ion-icon></a>
-                    <a href="#" class="social-link"><ion-icon name="logo-twitter"></ion-icon></a>
-                </div>
             </div>
         </div>
 
@@ -1331,13 +1488,158 @@
 
 
 
+        <style>
+            .browser-toolbar {
+                display: flex;
+                align-items: center;
+                padding: 8px;
+                background: rgba(255, 255, 255, 0.1);
+                gap: 8px;
+            }
+            
+            .nav-button {
+                background: none;
+                border: none;
+                color: white;
+                padding: 4px 8px;
+                border-radius: 4px;
+                cursor: pointer;
+                transition: background 0.3s ease;
+            }
+            
+            .nav-button:hover {
+                background: rgba(255, 255, 255, 0.1);
+            }
+            
+            .url-bar {
+                flex: 1;
+                display: flex;
+                background: rgba(0, 0, 0, 0.3);
+                border-radius: 4px;
+                padding: 4px;
+            }
+            
+            .url-bar input {
+                flex: 1;
+                background: none;
+                border: none;
+                color: white;
+                padding: 4px 8px;
+                outline: none;
+            }
+            
+            .url-bar button {
+                background: none;
+                border: none;
+                color: white;
+                padding: 4px 8px;
+                cursor: pointer;
+                border-radius: 4px;
+                transition: background 0.3s ease;
+            }
+            
+            .url-bar button:hover {
+                background: rgba(255, 255, 255, 0.1);
+            }
+            
+            .browser-content {
+                position: relative;
+                height: calc(100% - 86px);
+                background: white;
+                color: black;
+                overflow: auto;
+            }
+            
+            #webpage-content {
+                padding: 20px;
+            }
+            
+            #loading-overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0, 0, 0, 0.7);
+                display: none;
+                justify-content: center;
+                align-items: center;
+            }
+            
+            .spinner {
+                width: 40px;
+                height: 40px;
+                border: 4px solid rgba(255, 255, 255, 0.3);
+                border-radius: 50%;
+                border-top-color: white;
+                animation: spin 1s linear infinite;
+            }
+            
+            @keyframes spin {
+                to { transform: rotate(360deg); }
+            }
+            
+            #error-message {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: rgba(255, 0, 0, 0.2);
+                padding: 16px;
+                border-radius: 4px;
+                color: white;
+                display: none;
+            }
+            </style>
+            
+
+
+<div class="window" id="browser" style="width: 800px; height: 600px; top: 60px; left: 140px;">
+    <div class="window-header">
+        <div class="window-title">
+            <ion-icon name="globe"></ion-icon>
+            Web Browser
+        </div>
+        <div class="window-controls">
+            <button class="window-button window-minimize"></button>
+            <button class="window-button window-maximize"></button>
+            <button class="window-button window-close"></button>
+        </div>
+    </div>
+    <div class="browser-toolbar">
+        <button class="nav-button" id="back-button">
+            <ion-icon name="arrow-back"></ion-icon>
+        </button>
+        <button class="nav-button" id="forward-button">
+            <ion-icon name="arrow-forward"></ion-icon>
+        </button>
+        <button class="nav-button" id="refresh-button">
+            <ion-icon name="refresh"></ion-icon>
+        </button>
+        <div class="url-bar">
+            <input type="text" id="url-input" placeholder="Enter URL">
+            <button id="go-button">
+                <ion-icon name="arrow-forward"></ion-icon>
+            </button>
+        </div>
+    </div>
+    <div class="browser-content">
+        <iframe id="browser-iframe" sandbox="allow-same-origin allow-scripts allow-forms" style="width: 100%; height: 100%; border: none;"></iframe>
+        <div id="loading-overlay">
+            <div class="spinner"></div>
+        </div>
+        <div id="error-message"></div>
+    </div>
+</div>
+
 
 
         <div class="shutdown-overlay">
             <img src="/static/ubuntu-logo.png" alt="Ubuntu" class="ubuntu-logo">
         </div>
     </div>
-    <script>
+
+<script>
 
         
     const elem = document.documentElement;
@@ -1354,9 +1656,6 @@
 
     
 
-    //if (!document.fullscreenElement) {
-    //    alert("Please press F11 to enter fullscreen mode (It'll look better)");
-    //}
 
     
 
@@ -1445,9 +1744,23 @@
         await new Promise(r => setTimeout(r, 2.5));
     }
 
-    async function startSystem() {
+    function checkBootStatus() {
+        const hasBooted = localStorage.getItem('hasBooted');
+        if (hasBooted) {
+            startupButton.style.display = 'none';
+            desktopContainer.style.display = 'block';
+            desktopContainer.style.opacity = '1';
+        } else {
+            startupButton.style.display = 'block';
+        }
+    }
 
+    
+
+
+    async function startSystem() {
         desktopContainer.style.display = 'none';
+        startupSequence.style.display = 'block';
         
         for (let message of bootMessages) {
             await typeBootMessage(message);
@@ -1456,10 +1769,14 @@
         startupSequence.style.display = 'none';
         ubuntuSplash.style.display = 'flex';
         ubuntuSplash.classList.add('active');
+        await new Promise(r => setTimeout(r, 2000));
+        
+        ubuntuSplash.classList.remove('active');
         await new Promise(r => setTimeout(r, 500));
-
         ubuntuSplash.style.display = 'none';
+        
         loginScreen.style.display = 'flex';
+        await new Promise(r => setTimeout(r, 50));
         loginScreen.classList.add('active');
     }
 
@@ -1472,7 +1789,11 @@
         desktopContainer.style.display = 'block';
         await new Promise(r => setTimeout(r, 50));
         desktopContainer.style.opacity = '1';
+        
+        localStorage.setItem('hasBooted', 'true');
     });
+
+    
 
         const startupButton = document.getElementById('startup-button');
         startupButton.addEventListener('click', () => {
@@ -1607,6 +1928,7 @@
 
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
+                e.preventDefault();
                 appsOverview.classList.remove('active');
             }
         });
@@ -1628,22 +1950,13 @@
         searchInput.addEventListener('input', (e) => {
             const query = e.target.value.toLowerCase();
             document.querySelectorAll('.app-item').forEach(item => {
-                item.addEventListener('click', () => {
-                    const windowId = item.dataset.window;
-                    const window = document.getElementById(windowId);
-                    
-                    window.style.transform = 'scale(0.95)';
-                    window.style.opacity = '0';
-                    window.classList.add('active');
-                    window.style.zIndex = ++zIndex;
-                    
-                    window.offsetHeight;
-                    
-                    window.style.transform = '';
-                    window.style.opacity = '';
-                    
-                    appsOverview.classList.remove('active');
-                });
+                if (item.textContent.toLowerCase().includes(query)) {
+                    item.style.display = 'flex';
+                } else if (query === '') {
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
             });
         });
 
@@ -1662,22 +1975,32 @@
         const shutdownOverlay = document.querySelector('.shutdown-overlay');
 
         powerBtn.addEventListener('click', () => {
-            if (document.fullscreenElement) {
-                document.exitFullscreen();
-            }
-            shutdownOverlay.classList.add('active');
-            
-            setTimeout(() => {
-                const handleClick = (e) => {
-                    if (e.button === 0) {
-                        shutdownOverlay.classList.remove('active');
-                        document.removeEventListener('click', handleClick);
+    if (document.fullscreenElement) {
+        document.exitFullscreen();
+    }
+    shutdownOverlay.classList.add('active');
+    
+    setTimeout(() => {
+        const handleClick = (e) => {
+            if (e.button === 0) {
+                shutdownOverlay.classList.remove('active');
+                if (!document.fullscreenElement) {
+                    if (document.documentElement.requestFullscreen) {
+                        document.documentElement.requestFullscreen();
+                    } else if (document.documentElement.webkitRequestFullscreen) {
+                        document.documentElement.webkitRequestFullscreen();
+                    } else if (document.documentElement.msRequestFullscreen) {
+                        document.documentElement.msRequestFullscreen();
                     }
-                };
-                
-                document.addEventListener('click', handleClick);
-            }, 1500);
-        });
+                }
+                document.removeEventListener('click', handleClick);
+            }
+        };
+        
+        document.addEventListener('click', handleClick);
+    }, 1500);
+});
+document.addEventListener('DOMContentLoaded', checkBootStatus);
 
 
 
@@ -1701,7 +2024,7 @@ let systemState = {
     nightLight: false,
     darkMode: false,
     doNotDisturb: false,
-    brightness: 80,
+    brightness: 100,
     volume: 60
 };
 
@@ -1729,21 +2052,18 @@ document.addEventListener('DOMContentLoaded', () => {
         const bluetoothIcon = document.querySelector('.system-indicators ion-icon[name="bluetooth"]');
         const volumeIcon = document.querySelector('.system-indicators ion-icon[name="volume-high"]');
         
-        // Update WiFi
         if (systemState.wifiEnabled) {
             wifiIcon.classList.remove('hidden');
         } else {
             wifiIcon.classList.add('hidden');
         }
         
-        // Update Bluetooth
         if (systemState.bluetoothEnabled) {
             bluetoothIcon.classList.remove('hidden');
         } else {
             bluetoothIcon.classList.add('hidden');
         }
         
-        // Update volume icon based on level
         if (systemState.volume === 0) {
             volumeIcon.setAttribute('name', 'volume-mute');
         } else if (systemState.volume < 30) {
@@ -1755,38 +2075,32 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-// Function to update toggle states
 function updateToggles() {
     document.querySelectorAll('.quick-toggle').forEach(toggle => {
         const feature = toggle.dataset.feature;
         
-        // Handle wifi and bluetooth separately
         if (feature === 'wifi') {
             toggle.classList.toggle('active', systemState.wifiEnabled);
         }
         else if (feature === 'bluetooth') {
             toggle.classList.toggle('active', systemState.bluetoothEnabled);
         }
-        // Handle other features
         else if (systemState[feature] !== undefined) {
             toggle.classList.toggle('active', systemState[feature]);
         }
     });
 }
     
-    // Toggle quick settings
     document.querySelectorAll('.quick-toggle').forEach(toggle => {
         toggle.addEventListener('click', () => {
             const feature = toggle.dataset.feature;
             
-            // Handle wifi and bluetooth
             if (feature === 'wifi') {
                 systemState.wifiEnabled = !systemState.wifiEnabled;
             }
             else if (feature === 'bluetooth') {
                 systemState.bluetoothEnabled = !systemState.bluetoothEnabled;
             }
-            // Handle other toggles
             else {
                 systemState[feature] = !systemState[feature];
             }
@@ -1794,13 +2108,11 @@ function updateToggles() {
             updateToggles();
             updateSystemIndicators();
             
-            // Apply night light effect
             if (feature === 'nightlight') {
-                document.body.style.filter = systemState.nightLight ? 
+                document.getElementsByClassName('brightness-overlay')[0].style.filter = systemState.nightLight ? 
                     'sepia(20%) brightness(90%)' : '';
             }
             
-            // Apply dark mode effect
             if (feature === 'darkmode') {
                 document.body.style.backgroundColor = systemState.darkMode ? 
                     '#1a1a1a' : '';
@@ -1808,25 +2120,229 @@ function updateToggles() {
         });
     });
     
-    // Handle brightness slider
     const brightnessSlider = document.querySelector('.brightness-slider');
     brightnessSlider.addEventListener('input', (e) => {
         systemState.brightness = parseInt(e.target.value);
-        document.body.style.filter = `brightness(${systemState.brightness}%)`;
+        document.getElementsByClassName('brightness-overlay')[0].style.backgroundColor = `rgba(0, 0, 0, ${1 - systemState.brightness / 100})`;
     });
     
-    // Handle volume slider
     const volumeSlider = document.querySelector('.volume-slider');
     volumeSlider.addEventListener('input', (e) => {
         systemState.volume = parseInt(e.target.value);
         updateSystemIndicators();
     });
     
-    // Initial update
     updateToggles();
     updateSystemIndicators();
 });
         
+
+
+function updateSpotifyWidget() {
+    fetch('/now-playing')
+        .then(response => response.json())
+        .then(data => {
+            const spotifyContent = document.getElementById('spotify-content');
+            
+            if (data.status === 'not_authenticated') {
+                spotifyContent.innerHTML = `
+                    <div class="not-playing">
+                        Not connected to Spotify
+                        <br>
+                        <a href="/spotify-login" class="spotify-login">
+                            <ion-icon name="log-in"></ion-icon>
+                            Connect
+                        </a>
+                    </div>
+                `;
+            } else if (data.status === 'not_playing') {
+                spotifyContent.innerHTML = `
+                    <div class="not-playing">
+                        Nothing playing right now
+                    </div>
+                `;
+            } else if (data.status === 'playing') {
+                spotifyContent.innerHTML = `
+                    <div class="spotifywidget-content">
+                        <div class="spotifywidget-image" style="background-image: url('${data.album_art}')" onclick="window.open('${data.spotify_link}', '_blank')"></div>
+                        <div class="song-info">
+                            <div class="song-title">${data.track_name}</div>
+                            <div class="song-artist">${data.artist}</div>
+                        </div>
+                    </div>
+                `;
+                document.getElementById('spotify-user').textContent = data.display_name;
+            }
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+setInterval(updateSpotifyWidget, 5000);
+updateSpotifyWidget();
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        e.preventDefault();
+    }
+});
+
+
+
+
+
+
+
+
+
+function initBrowser() {
+    const urlInput = document.getElementById('url-input');
+    const goButton = document.getElementById('go-button');
+    const browserIframe = document.getElementById('browser-iframe');
+    const loadingOverlay = document.getElementById('loading-overlay');
+    const errorMessage = document.getElementById('error-message');
+    const backButton = document.getElementById('back-button');
+    const forwardButton = document.getElementById('forward-button');
+    const refreshButton = document.getElementById('refresh-button');
+    const browserWindow = document.getElementById('browser');
+    
+    let history = [];
+    let currentIndex = -1;
+
+    window.loadUrl = function(url) {
+        loadingOverlay.style.display = 'flex';
+        errorMessage.style.display = 'none';
+        
+        fetch(`/proxy?url=${encodeURIComponent(url)}`)
+            .then(response => {
+                if (!response.ok) throw new Error('Failed to load page');
+                return response.text();
+            })
+            .then(html => {
+                const blob = new Blob([html], { type: 'text/html' });
+                const blobUrl = URL.createObjectURL(blob);
+                
+                browserIframe.src = blobUrl;
+                
+                browserIframe.onload = () => {
+                    URL.revokeObjectURL(blobUrl);
+                    
+                    try {
+                        const iframeDoc = browserIframe.contentDocument || browserIframe.contentWindow.document;
+                        iframeDoc.querySelectorAll('a').forEach(link => {
+                            link.addEventListener('click', (e) => {
+                                e.preventDefault();
+                                const href = link.getAttribute('href');
+                                if (href && !href.startsWith('#') && !href.startsWith('javascript:')) {
+                                    const absoluteUrl = new URL(href, url).href;
+                                    urlInput.value = absoluteUrl;
+                                    loadUrl(absoluteUrl);
+                                }
+                            });
+                        });
+                    } catch (e) {
+                        console.error('Error adding link handlers:', e);
+                    }
+                };
+
+                if (currentIndex === history.length - 1) {
+                    history.push(url);
+                    currentIndex++;
+                } else {
+                    history = history.slice(0, currentIndex + 1);
+                    history.push(url);
+                    currentIndex++;
+                }
+                updateNavigationButtons();
+            })
+            .catch(err => {
+                errorMessage.textContent = err.message;
+                errorMessage.style.display = 'block';
+            })
+            .finally(() => {
+                loadingOverlay.style.display = 'none';
+            });
+    }
+
+    function updateNavigationButtons() {
+        backButton.disabled = currentIndex <= 0;
+        forwardButton.disabled = currentIndex >= history.length - 1;
+    }
+
+    goButton.addEventListener('click', () => {
+        let url = urlInput.value.trim();
+        if (url) loadUrl(url);
+    });
+
+    urlInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            let url = urlInput.value.trim();
+            if (url) loadUrl(url);
+        }
+    });
+
+    backButton.addEventListener('click', () => {
+        if (currentIndex > 0) {
+            currentIndex--;
+            urlInput.value = history[currentIndex];
+            loadUrl(history[currentIndex]);
+        }
+    });
+
+    forwardButton.addEventListener('click', () => {
+        if (currentIndex < history.length - 1) {
+            currentIndex++;
+            urlInput.value = history[currentIndex];
+            loadUrl(history[currentIndex]);
+        }
+    });
+
+    refreshButton.addEventListener('click', () => {
+        if (history[currentIndex]) {
+            loadUrl(history[currentIndex]);
+        }
+    });
+
+    makeWindowDraggable(browserWindow);
+    browserWindow.addEventListener('mousedown', () => {
+        browserWindow.style.zIndex = ++zIndex;
+    });
+
+    const closeBtn = browserWindow.querySelector('.window-close');
+    closeBtn.addEventListener('click', () => {
+        browserWindow.classList.add('closing');
+        browserWindow.addEventListener('animationend', () => {
+            browserWindow.classList.remove('active', 'closing');
+        }, { once: true });
+    });
+}
+function openInBrowser(url) {
+        const browser = document.getElementById('browser');
+        const urlInput = document.getElementById('url-input');
+        
+        browser.classList.add('active');
+        browser.style.zIndex = ++zIndex;
+        
+        urlInput.value = url;
+        loadUrl(url);
+    }
+
+
+const dockIcon = document.querySelector('[data-window="browser"]');
+
+dockIcon.addEventListener('click', () => {
+    const browser = document.getElementById('browser');
+    if (browser.classList.contains('active')) {
+        browser.classList.add('closing');
+        browser.addEventListener('animationend', () => {
+            browser.classList.remove('active', 'closing');
+        }, { once: true });
+    } else {
+        browser.classList.add('active');
+        browser.style.zIndex = ++zIndex;
+    }
+});
+
+document.addEventListener('DOMContentLoaded', initBrowser);
     </script>
 </body>
 </html>
