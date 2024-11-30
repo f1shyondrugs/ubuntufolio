@@ -24,7 +24,7 @@
         body {
             margin: 0;
             padding: 0;
-            background: url('/static/noble-dark.png');
+            background-image: url('/static/wallpapers/noble-dark.png');
             background-size: cover;
             background-position: center;
             height: 100vh;
@@ -74,7 +74,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: url('/static/noble-dark.png');
+            background: url('/static/wallpapers/noble-dark.png');
             background-size: cover;
             display: none;
             flex-direction: column;
@@ -95,7 +95,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: url('/static/noble-dark.png');
+            background: url('/static/wallpapers/noble-dark.png');
             background-size: cover;
             display: flex;
             flex-direction: column;
@@ -127,7 +127,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: url('static/noble-dark.png');
+            background: url('/static/wallpapers/noble-dark.png');
             background-size: cover;
             display: flex;
             flex-direction: column;
@@ -318,6 +318,17 @@
             gap: 16px;
             align-items: center;
             justify-self: end;
+        }
+
+        .system-indicators ion-icon {
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+
+        .system-indicators ion-icon:hover {
+            background-color: rgba(255, 255, 255, 0.1);
         }
 
         .power-btn {
@@ -647,52 +658,36 @@
             transform: translateY(-3px);
         }
 
-        .resume-content {
-            padding: 24px;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .resume-section {
-            margin-bottom: 24px;
-        }
-
-        .resume-section h2 {
-            margin-bottom: 16px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding-bottom: 8px;
-        }
-
-        .blog-grid {
+        .update-log-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 24px;
             padding: 24px;
         }
 
-        .blog-card {
+        .update-log-card {
             background: rgba(255, 255, 255, 0.1);
             border-radius: 8px;
             padding: 16px;
             transition: transform 0.3s ease;
         }
 
-        .blog-card:hover {
+        .update-log-card:hover {
             transform: translateY(-5px);
         }
 
-        .blog-date {
+        .update-log-date {
             font-size: 14px;
             color: #ccc;
             margin-bottom: 8px;
         }
 
-        .blog-title {
+        .update-log-title {
             font-size: 18px;
             margin-bottom: 8px;
         }
 
-        .blog-excerpt {
+        .update-log-excerpt {
             color: #ccc;
             font-size: 14px;
             line-height: 1.6;
@@ -963,6 +958,8 @@
         .apps-overview.active .app-item:nth-child(4) { transition-delay: 0.25s; }
         .apps-overview.active .app-item:nth-child(5) { transition-delay: 0.3s; }
         .apps-overview.active .app-item:nth-child(6) { transition-delay: 0.35s; }
+        .apps-overview.active .app-item:nth-child(7) { transition-delay: 0.4s; }
+        .apps-overview.active .app-item:nth-child(8) { transition-delay: 0.45s; }
 
 
 
@@ -1072,6 +1069,930 @@
             font-size: 13px;
             padding: 20px;
         }
+
+        .browser-toolbar {
+                display: flex;
+                align-items: center;
+                padding: 8px;
+                background: rgba(255, 255, 255, 0.1);
+                gap: 8px;
+            }
+            
+            .nav-button {
+                background: none;
+                border: none;
+                color: white;
+                padding: 4px 8px;
+                border-radius: 4px;
+                cursor: pointer;
+                transition: background 0.3s ease;
+            }
+            
+            .nav-button:hover {
+                background: rgba(255, 255, 255, 0.1);
+            }
+            
+            .url-bar {
+                flex: 1;
+                display: flex;
+                background: rgba(0, 0, 0, 0.3);
+                border-radius: 4px;
+                padding: 4px;
+            }
+            
+            .url-bar input {
+                flex: 1;
+                background: none;
+                border: none;
+                color: white;
+                padding: 4px 8px;
+                outline: none;
+            }
+            
+            .url-bar button {
+                background: none;
+                border: none;
+                color: white;
+                padding: 4px 8px;
+                cursor: pointer;
+                border-radius: 4px;
+                transition: background 0.3s ease;
+            }
+            
+            .url-bar button:hover {
+                background: rgba(255, 255, 255, 0.1);
+            }
+            
+            .browser-content {
+                position: relative;
+                height: calc(100% - 86px);
+                background: white;
+                color: black;
+                overflow: auto;
+            }
+            
+            #webpage-content {
+                padding: 20px;
+            }
+            
+            #loading-overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0, 0, 0, 0.7);
+                display: none;
+                justify-content: center;
+                align-items: center;
+            }
+            
+            .spinner {
+                width: 40px;
+                height: 40px;
+                border: 4px solid rgba(255, 255, 255, 0.3);
+                border-radius: 50%;
+                border-top-color: white;
+                animation: spin 1s linear infinite;
+            }
+            
+            @keyframes spin {
+                to { transform: rotate(360deg); }
+            }
+            
+            #error-message {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: rgba(255, 0, 0, 0.2);
+                padding: 16px;
+                border-radius: 4px;
+                color: white;
+                display: none;
+            }
+
+            .spotify-app {
+                display: flex;
+                height: 100%;
+                color: white;
+            }
+
+            .spotify-sidebar {
+                width: 200px;
+                background: rgba(0, 0, 0, 0.3);
+                padding: 20px;
+            }
+
+            .spotify-main {
+                flex: 1;
+                padding: 20px;
+                overflow-y: auto;
+            }
+
+            .spotify-nav {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .nav-item {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                padding: 10px;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: background 0.3s ease;
+            }
+
+            .nav-item:hover {
+                background: rgba(255, 255, 255, 0.1);
+            }
+
+            .nav-item.active {
+                background: #1DB954;
+            }
+
+            .view {
+                display: block;
+            }
+
+            .view.hidden {
+                display: none;
+            }
+
+            .now-playing {
+                background: rgba(0, 0, 0, 0.3);
+                padding: 20px;
+                border-radius: 10px;
+                margin-bottom: 30px;
+            }
+
+            .now-playing-content {
+                display: flex;
+                align-items: center;
+                gap: 20px;
+                margin-top: 20px;
+            }
+
+            .track-art {
+                width: 120px;
+                height: 120px;
+                background-size: cover;
+                background-position: center;
+                border-radius: 5px;
+            }
+
+            .track-info {
+                flex: 1;
+            }
+
+            .track-name {
+                font-size: 24px;
+                font-weight: bold;
+                margin-bottom: 5px;
+            }
+
+            .track-artist {
+                color: #888;
+            }
+
+            .track-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 20px;
+                margin-top: 20px;
+            }
+
+            .track-item {
+                background: rgba(0, 0, 0, 0.3);
+                padding: 10px;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+            }
+
+            .track-item:hover {
+                background: rgba(255, 255, 255, 0.1);
+                transform: translateY(-3px);
+            }
+
+            .track-item-art {
+                width: 100%;
+                aspect-ratio: 1;
+                background-size: cover;
+                background-position: center;
+                border-radius: 3px;
+                margin-bottom: 10px;
+            }
+
+            .track-item-name {
+                font-weight: bold;
+                margin-bottom: 5px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .track-item-artist {
+                color: #888;
+                font-size: 14px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .playlist-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 20px;
+                margin-top: 20px;
+            }
+
+            .playlist-item {
+                background: rgba(0, 0, 0, 0.3);
+                padding: 15px;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+            }
+
+            .playlist-item:hover {
+                background: rgba(255, 255, 255, 0.1);
+                transform: translateY(-3px);
+            }
+
+            .playlist-art {
+                width: 100%;
+                aspect-ratio: 1;
+                background-size: cover;
+                background-position: center;
+                border-radius: 3px;
+                margin-bottom: 15px;
+            }
+
+            .playlist-name {
+                font-weight: bold;
+                margin-bottom: 5px;
+            }
+
+            .playlist-tracks {
+                color: #888;
+                font-size: 14px;
+            }
+
+            .track-list {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                margin-top: 20px;
+            }
+
+            .track-list-item {
+                display: flex;
+                align-items: center;
+                gap: 15px;
+                padding: 10px;
+                background: rgba(0, 0, 0, 0.3);
+                border-radius: 5px;
+                cursor: pointer;
+                transition: background 0.3s ease;
+            }
+
+            .track-list-item:hover {
+                background: rgba(255, 255, 255, 0.1);
+            }
+
+            .track-list-art {
+                width: 50px;
+                height: 50px;
+                background-size: cover;
+                background-position: center;
+                border-radius: 3px;
+            }
+
+            .track-list-info {
+                flex: 1;
+            }
+
+            .track-list-name {
+                font-weight: bold;
+                margin-bottom: 3px;
+            }
+
+            .track-list-artist {
+                color: #888;
+                font-size: 14px;
+            }
+
+            .track-list-duration {
+                color: #888;
+                font-size: 14px;
+                margin-left: auto;
+            }
+            .weather-widget {
+                position: absolute;
+                top: 50px;
+                right: 370px;
+                width: 300px;
+                height: auto;
+                background: rgba(25, 20, 20, 0.95);
+                border-radius: 12px;
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+                backdrop-filter: blur(10px);
+                transition: all 0.3s ease;
+                overflow: hidden;
+                padding-bottom: 3px;
+            }
+
+            .weather-widget:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 12px 36px rgba(0, 0, 0, 0.4);
+            }
+
+            .weather-widget-header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 12px 15px;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .weather-widget-title {
+                font-size: 14px;
+                font-weight: 500;
+                color: #64B5F6;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+
+            .weather-widget-content {
+                padding: 15px;
+                color: white;
+            }
+
+            .weather-loading {
+                text-align: center;
+                color: rgba(255, 255, 255, 0.7);
+                font-size: 13px;
+                padding: 10px;
+            }
+
+            .weather-widget-main {
+                display: flex;
+                align-items: center;
+                gap: 15px;
+            }
+
+            .weather-temp {
+                font-size: 32px;
+                font-weight: 500;
+            }
+
+            .weather-description {
+                font-size: 14px;
+                opacity: 0.8;
+            }
+
+            .weather-details {
+                display: flex;
+                gap: 15px;
+                margin-top: 10px;
+                font-size: 12px;
+            }
+
+            .weather-app {
+                display: flex;
+                flex-direction: column;
+                height: 100%;
+                gap: 20px;
+                padding: 20px;
+            }
+
+            .weather-search {
+                padding: 10px;
+            }
+
+            .search-container {
+                display: flex;
+                gap: 10px;
+                background: rgba(255, 255, 255, 0.1);
+                padding: 10px;
+                border-radius: 8px;
+                align-items: center;
+            }
+
+            .search-container input {
+                flex: 1;
+                background: none;
+                border: none;
+                color: white;
+                outline: none;
+                font-size: 16px;
+            }
+
+            .search-button {
+                background: #64B5F6;
+                border: none;
+                padding: 8px 16px;
+                border-radius: 4px;
+                color: white;
+                cursor: pointer;
+                transition: background 0.3s ease;
+            }
+
+            .search-button:hover {
+                background: #42A5F5;
+            }
+
+            .current-weather {
+                background: rgba(255, 255, 255, 0.1);
+                border-radius: 12px;
+                padding: 20px;
+                margin-bottom: 20px;
+            }
+
+            .weather-location h2 {
+                font-size: 24px;
+                margin-bottom: 5px;
+            }
+
+            .date {
+                color: rgba(255, 255, 255, 0.7);
+                font-size: 14px;
+            }
+
+            .temperature {
+                display: flex;
+                align-items: center;
+                gap: 20px;
+                margin: 20px 0;
+            }
+
+            .temp {
+                font-size: 48px;
+                font-weight: bold;
+            }
+
+            .weather-icon {
+                width: 64px;
+                height: 64px;
+            }
+
+            .weather-details {
+                display: flex;
+                gap: 30px;
+            }
+
+            .detail {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+
+            .forecast {
+                background: rgba(255, 255, 255, 0.1);
+                border-radius: 12px;
+                padding: 20px;
+            }
+
+            .forecast h3 {
+                margin-bottom: 15px;
+            }
+
+            .forecast-grid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 15px;
+            }
+
+            .forecast-day {
+                background: rgba(255, 255, 255, 0.1);
+                border-radius: 8px;
+                padding: 15px;
+                text-align: center;
+            }
+
+            .forecast-date {
+                font-size: 14px;
+                margin-bottom: 10px;
+            }
+
+            .forecast-temp {
+                font-size: 24px;
+                font-weight: bold;
+                margin: 10px 0;
+            }
+
+            .forecast-icon {
+                width: 48px;
+                height: 48px;
+            }
+
+            
+
+            .suggestion-widget {
+                position: fixed;
+                top: 210px;
+                right: 50px;
+                width: 300px;
+                background: rgba(25, 20, 20, 0.95);
+                border-radius: 12px;
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+                backdrop-filter: blur(10px);
+                transition: all 0.3s ease;
+                overflow: hidden;
+                z-index: 1000;
+            }
+
+            .suggestion-widget-header {
+                padding: 12px 15px;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+            .suggestion-widget-title {
+                font-size: 14px;
+                font-weight: 500;
+                color: #64B5F6;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+
+            .suggestion-widget-content {
+                padding: 15px;
+            }
+
+            .suggestion-input-container {
+                background: rgba(255, 255, 255, 0.05);
+                border-radius: 8px;
+                padding: 8px;
+                display: flex;
+                gap: 8px;
+                align-items: center;
+            }
+
+            .suggestion-input {
+                background: rgba(255, 255, 255, 0.08);
+                border: 1px solid rgba(255, 255, 255, 0.15);
+                backdrop-filter: blur(4px);
+                border-radius: 4px;
+                color: rgba(255, 255, 255, 0.7);
+                padding: 8px 12px;
+                font-size: 14px;
+                outline: none;
+                width: 100%;
+            }
+
+            .suggestion-input:focus {
+                background: rgba(255, 255, 255, 0.12);
+                border-color: rgba(255, 255, 255, 0.25);
+                box-shadow: 0 0 0 2px rgba(56, 202, 255, 0.2);
+            }
+
+            .suggestion-submit {
+                background: linear-gradient(
+                    135deg,
+                    rgba(100, 181, 246, 0.8) 0%,
+                    rgba(66, 165, 245, 0.9) 100%
+                );
+                backdrop-filter: blur(4px);
+                box-shadow: 
+                    0 2px 4px rgba(0, 0, 0, 0.2),
+                    inset 0 1px 1px rgba(255, 255, 255, 0.2);
+                border-radius: 4px;
+                border: none;
+                color: #fff;
+                padding: 8px 12px;
+                font-size: 14px;
+                cursor: pointer;
+            }
+
+            .suggestion-submit:hover {
+                background: linear-gradient(
+                    135deg,
+                    rgba(100, 181, 246, 0.9) 0%,
+                    rgba(66, 165, 245, 1) 100%
+                );
+            }
+
+            .suggestion-submit:active {
+                transform: translateY(1px);
+            }
+
+            .suggestion-submit ion-icon {
+                font-size: 18px;
+            }
+
+            .suggestion-widget:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 12px 36px rgba(0, 0, 0, 0.4);
+            }
+
+            .suggestion-input::placeholder {
+                color: rgba(255, 255, 255, 0.5);
+            }
+
+            .suggestion-description {
+                font-size: 12px;
+                color: rgba(255, 255, 255, 0.5);
+                margin-top: 5px;
+                margin-bottom: 5px;
+            }
+
+            .spotifywidget-header, .weather-widget-header, .suggestion-widget-header {
+                background: rgba(255, 255, 255, 0.05);
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                backdrop-filter: blur(8px);
+            }
+
+            .spotifywidget:hover, .weather-widget:hover, .suggestion-widget:hover {
+                transform: translateY(-2px);
+                box-shadow: 
+                    0 12px 36px rgba(0, 0, 0, 0.4),
+                    inset 0 1px 1px rgba(255, 255, 255, 0.15),
+                    inset 0 -1px 1px rgba(0, 0, 0, 0.3);
+            }
+
+            .spotifywidget-content, .weather-widget-content, .suggestion-widget-content {
+                background: linear-gradient(
+                    135deg, 
+                    rgba(255, 255, 255, 0.05) 0%,
+                    rgba(255, 255, 255, 0.02) 100%
+                );
+            }
+
+            .spotifywidget, .weather-widget, .suggestion-widget {
+                background: rgba(25, 20, 20, 0.75);
+                backdrop-filter: blur(12px) saturate(180%);
+                box-shadow: 
+                    0 8px 32px rgba(0, 0, 0, 0.3),
+                    inset 0 1px 1px rgba(255, 255, 255, 0.1),
+                    inset 0 -1px 1px rgba(0, 0, 0, 0.2);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+            .settings-content {
+                display: flex;
+                height: calc(100% - 36px);
+            }
+
+            .settings-sidebar {
+                width: 250px;
+                background: rgba(0, 0, 0, 0.2);
+                padding: 16px;
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .settings-search {
+                position: relative;
+            }
+
+            .settings-search ion-icon {
+                position: absolute;
+                left: 12px;
+                top: 50%;
+                transform: translateY(-50%);
+                color: rgba(255, 255, 255, 0.6);
+            }
+
+            .settings-search input {
+                width: 100%;
+                background: rgba(255, 255, 255, 0.1);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                padding: 8px 12px 8px 36px;
+                border-radius: 6px;
+                color: white;
+                outline: none;
+            }
+
+            .settings-search input:focus {
+                border-color: #0073e6;
+            }
+
+            .settings-tabs {
+                display: flex;
+                flex-direction: column;
+                gap: 4px;
+            }
+
+            .settings-tab {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                padding: 8px 12px;
+                border-radius: 6px;
+                background: none;
+                border: none;
+                color: white;
+                text-align: left;
+                cursor: pointer;
+                transition: background-color 0.2s;
+            }
+
+            .settings-tab:hover {
+                background: rgba(255, 255, 255, 0.1);
+            }
+
+            .settings-tab.active {
+                background: #0073e6;
+            }
+
+            .settings-panels {
+                flex: 1;
+                padding: 24px;
+                overflow-y: auto;
+            }
+
+            .settings-panel {
+                display: none;
+            }
+
+            .settings-panel.active {
+                display: block;
+            }
+
+            .settings-panel h2 {
+                font-size: 20px;
+                margin-bottom: 24px;
+            }
+
+            .setting-item {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 16px;
+                background: rgba(255, 255, 255, 0.05);
+                border-radius: 8px;
+                margin-bottom: 16px;
+            }
+
+            .setting-info h3 {
+                margin-bottom: 4px;
+            }
+
+            .setting-info p {
+                color: rgba(255, 255, 255, 0.6);
+                font-size: 14px;
+            }
+
+            .toggle {
+                width: 48px;
+                height: 24px;
+                background: rgba(255, 255, 255, 0.1);
+                border-radius: 12px;
+                position: relative;
+                cursor: pointer;
+                transition: background-color 0.2s;
+            }
+
+            .toggle.active {
+                background: #0073e6;
+            }
+
+            .toggle-slider {
+                width: 20px;
+                height: 20px;
+                background: white;
+                border-radius: 50%;
+                position: absolute;
+                top: 2px;
+                left: 2px;
+                transition: transform 0.2s;
+            }
+
+            .toggle.active .toggle-slider {
+                transform: translateX(24px);
+            }
+
+            .settings-image {
+                border-radius: 10px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+                transition-duration: 0.3s;
+            }
+            .settings-image:hover {
+                transform: scale(1.05);
+                cursor: pointer;
+            }
+
+            .wallpaper-info {
+                text-align: left;
+                margin-top: 10px;
+                padding-left: 10px;
+            }
+
+            .wallpaper-title {
+                font-weight: bold;
+            }
+
+            .wallpaper-upload-container {
+                position: relative;
+                width: 300px;
+                height: 169px;
+                border: 2px dashed rgba(255, 255, 255, 0.3);
+                border-radius: 8px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                position: relative;
+                margin: 10px 0;
+            }
+
+            .file-type-select {
+                background: rgba(255, 255, 255, 0.1);
+                padding: 8px;
+                border-radius: 4px;
+                margin-bottom: 10px;
+                display: flex;
+                gap: 10px;
+                justify-content: center;
+            }
+
+            .file-type-btn {
+                background: rgba(255, 255, 255, 0.1);
+                border: none;
+                padding: 6px 12px;
+                border-radius: 4px;
+                color: white;
+                cursor: pointer;
+                transition: background 0.3s ease;
+            }
+
+            .file-type-btn.active {
+                background: #0073e6;
+            }
+
+            .file-type-btn:hover:not(.active) {
+                background: rgba(255, 255, 255, 0.2);
+            }
+
+            #wallpaper-upload {
+                display: none;
+            }
+
+            .upload-preview {
+                width: 300px;
+                height: 169px;
+                border-radius: 8px;
+                overflow: hidden;
+                margin: 10px 0;
+                display: none;
+            }
+
+            .upload-preview img,
+            .upload-preview video {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+            .wallpaper-upload-container:hover {
+                border-color: rgba(255, 255, 255, 0.5);
+                background: rgba(255, 255, 255, 0.05);
+            }
+
+            .wallpaper-upload-container ion-icon {
+                font-size: 48px;
+                color: rgba(255, 255, 255, 0.5);
+                margin-bottom: 8px;
+            }
+
+            .wallpaper-upload-container span {
+                font-size: 14px;
+                color: rgba(255, 255, 255, 0.5);
+            }
+
+            .wallpaper-upload-container input {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                opacity: 0;
+                cursor: pointer;
+            }
     </style>
 </head>
 <body>
@@ -1148,12 +2069,12 @@
                 </div>
             </div>
             
-            <div class="slider-control">
+            <div class="slider-control" id="brightness-control">
                 <ion-icon name="sunny"></ion-icon>
                 <input type="range" class="slider brightness-slider" min="0" max="100" value="${systemState.brightness}">
             </div>
             
-            <div class="slider-control">
+            <div class="slider-control" id="volume-control">
                 <ion-icon name="volume-high"></ion-icon>
                 <input type="range" class="slider volume-slider" min="0" max="100" value="${systemState.volume}">
             </div>
@@ -1180,19 +2101,26 @@
                     <ion-icon name="mail"></ion-icon>
                     <span>Contact</span>
                 </div>
-                <div class="app-item" data-window="blog">
+                <div class="app-item" data-window="update-log">
                     <ion-icon name="newspaper"></ion-icon>
-                    <span>Blog</span>
-                </div>
-                <div class="app-item" data-window="resume">
-                    <ion-icon name="document-text"></ion-icon>
-                    <span>Resume</span>
+                    <span>Update Log</span>
                 </div>
                 <div class="app-item" data-window="browser">
                     <ion-icon name="globe"></ion-icon>
                     <span>Browser</span>
                 </div>
-                
+                <div class="app-item" data-window="spotify">
+                    <ion-icon name="musical-notes"></ion-icon>
+                    <span>Spotify</span>
+                </div>
+                <div class="app-item" data-window="weather">
+                    <ion-icon name="partly-sunny"></ion-icon>
+                    <span>Weather</span>
+                </div>
+                <div class="app-item" data-window="settings">
+                    <ion-icon name="settings-outline"></ion-icon>
+                    <span>Settings</span>
+                </div>
             </div>
         </div>
         
@@ -1202,9 +2130,11 @@
             <div class="dock-icon" data-window="about" data-tooltip="About"><ion-icon name="person"></ion-icon></div>
             <div class="dock-icon" data-window="projects" data-tooltip="Projects"><ion-icon name="code-slash"></ion-icon></div>
             <div class="dock-icon" data-window="contact" data-tooltip="Contact"><ion-icon name="mail"></ion-icon></div>
-            <div class="dock-icon" data-window="blog" data-tooltip="Blog"><ion-icon name="newspaper"></ion-icon></div>
-            <div class="dock-icon" data-window="resume" data-tooltip="Resume"><ion-icon name="document-text"></ion-icon></div>
+            <div class="dock-icon" data-window="update-log" data-tooltip="Update Log"><ion-icon name="newspaper"></ion-icon></div>
             <div class="dock-icon" data-window="browser" data-tooltip="Browser"><ion-icon name="globe"></ion-icon></div>
+            <div class="dock-icon" data-window="spotify" data-tooltip="Spotify"><ion-icon name="musical-notes"></ion-icon></div>
+            <div class="dock-icon" data-window="weather" data-tooltip="Weather"><ion-icon name="partly-sunny"></ion-icon></div>
+            <div class="dock-icon" data-window="settings" data-tooltip="Settings"><ion-icon name="settings-outline"></ion-icon></div>
         </div>
 
         <div class="top-bar">
@@ -1226,25 +2156,122 @@
             </div>
         </div>
 
-<div class="spotifywidget" id="spotifywidget">
-    <div class="spotifywidget-header">
-        <div class="spotifywidget-title">
-            <ion-icon name="musical-notes"></ion-icon>
-            Spotify
+        <div class="spotifywidget" id="spotifywidget">
+            <div class="spotifywidget-header">
+                <div class="spotifywidget-title">
+                    <ion-icon name="musical-notes"></ion-icon>
+                    Spotify
+                </div>
+                <div style="color: white;" id="spotify-user"></div>
+            </div>
+            <div id="spotify-content">
+                <div class="not-playing">
+                    Not connected to Spotify
+                    <br>
+                    <a href="/spotify-login" class="spotify-login">
+                        <ion-icon name="log-in"></ion-icon>
+                        Connect
+                    </a>
+                </div>
+            </div>
         </div>
-        <div style="color: white;" id="spotify-user"></div>
-    </div>
-    <div id="spotify-content">
-        <div class="not-playing">
-            Not connected to Spotify
-            <br>
-            <a href="/spotify-login" class="spotify-login">
-                <ion-icon name="log-in"></ion-icon>
-                Connect
-            </a>
+
+        <div class="weather-widget" id="weatherwidget">
+            <div class="weather-widget-header">
+                <div class="weather-widget-title">
+                    <ion-icon name="partly-sunny"></ion-icon>
+                    Weather
+                </div>
+            </div>
+            <div class="weather-widget-content">
+                <div class="weather-loading">Loading weather data...</div>
+            </div>
         </div>
-    </div>
-</div>
+
+        <div class="suggestion-widget" id="suggestionwidget">
+            <div class="suggestion-widget-header">
+                <div class="suggestion-widget-title">
+                    <ion-icon name="bulb"></ion-icon>
+                    Suggestions
+                </div>
+            </div>
+            <div class="suggestion-widget-content">
+                <p class="suggestion-description">You have a Suggestion what i should add? <br>Send it to me here:</p>
+                <div class="suggestion-input-container">
+                    <input type="text" placeholder="Type your suggestion..." class="suggestion-input">
+                    <button class="suggestion-submit">
+                        <ion-icon name="send"></ion-icon>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+        <div class="window" id="weather" style="width: 800px; height: 600px; top: 70px; left: 160px;">
+            <div class="window-header">
+                <div class="window-title">
+                    <ion-icon name="partly-sunny"></ion-icon>
+                    Weather
+                </div>
+                <div class="window-controls">
+                    <button class="window-button window-minimize"></button>
+                    <button class="window-button window-maximize"></button>
+                    <button class="window-button window-close"></button>
+                </div>
+            </div>
+            <div class="window-content">
+                <div class="weather-app">
+                    <div class="weather-search">
+                        <div class="search-container">
+                            <ion-icon name="search"></ion-icon>
+                            <input type="text" placeholder="Search for a city...">
+                            <button class="search-button">Search</button>
+                        </div>
+                    </div>
+                    <div class="weather-main">
+                        <div class="current-weather">
+                            <div class="weather-location">
+                                <h2>Loading...</h2>
+                                <p class="date"></p>
+                            </div>
+                            <div class="weather-info">
+                                <div class="temperature">
+                                    <span class="temp">--°C</span>
+                                    <img src="" alt="weather icon" class="weather-icon">
+                                </div>
+                                <div class="weather-details">
+                                    <div class="detail">
+                                        <ion-icon name="water"></ion-icon>
+                                        <span class="humidity">--%</span>
+                                    </div>
+                                    <div class="detail">
+                                        <ion-icon name="speedometer"></ion-icon>
+                                        <span class="pressure">-- hPa</span>
+                                    </div>
+                                    <div class="detail">
+                                        <ion-icon name="wind"></ion-icon>
+                                        <span class="wind">-- km/h</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="forecast">
+                            <h3>3-Day Forecast</h3>
+                            <div class="forecast-grid"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div class="window" id="projects" style="width: 800px; height: 600px; top: 50px; left: 100px;">
             <div class="window-header">
@@ -1357,6 +2384,27 @@
             </div>
         </div>
 
+        <div class="window" id="terminal" style="width: 700px; height: 500px; top: 80px; left: 150px;">
+            <div class="window-header">
+                <div class="window-title">
+                    <ion-icon name="terminal"></ion-icon>
+                    Terminal
+                </div>
+                <div class="window-controls">
+                    <button class="window-button window-minimize"></button>
+                    <button class="window-button window-maximize"></button>
+                    <button class="window-button window-close"></button>
+                </div>
+            </div>
+            <div class="window-content terminal-content">
+                <div id="terminal-output"></div>
+                <div class="terminal-input-line">
+                    <span class="prompt">guest@ubuntu:~$</span>
+                    <input type="text" id="terminal-input" spellcheck="false">
+                </div>
+            </div>
+        </div>
+
         <div class="window" id="about" style="width: 600px; height: 400px; top: 80px; left: 150px;">
             <div class="window-header">
                 <div class="window-title">
@@ -1433,41 +2481,12 @@
             </div>
         </div>
 
-        <div class="window" id="resume" style="width: 700px; height: 500px; top: 70px; left: 120px;">
-            <div class="window-header">
-                <div class="window-title">
-                    <ion-icon name="document-text"></ion-icon>
-                    Resume
-                </div>
-                <div class="window-controls">
-                    <button class="window-button window-minimize"></button>
-                    <button class="window-button window-maximize"></button>
-                    <button class="window-button window-close"></button>
-                </div>
-            </div>
-            <div class="window-content">
-                <div class="resume-content">
-                    <div class="resume-section">
-                        <h2>This</h2>
-                        
-                    </div>
-                    <div class="resume-section">
-                        <h2>Will</h2>
-                        
-                    </div>
-                    <div class="resume-section">
-                        <h2>Come Soon</h2>
-                        
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="window" id="blog" style="width: 800px; height: 600px; top: 60px; left: 140px;">
+        
+        <div class="window" id="update-log" style="width: 800px; height: 600px; top: 60px; left: 140px;">
             <div class="window-header">
                 <div class="window-title">
                     <ion-icon name="newspaper"></ion-icon>
-                    Blog
+                    Update Logs
                 </div>
                 <div class="window-controls">
                     <button class="window-button window-minimize"></button>
@@ -1476,161 +2495,255 @@
                 </div>
             </div>
             <div class="window-content">
-                <div class="blog-grid">
-                    <div class="blog-card">
-                        <div class="blog-date">November 25, 2024</div>
-                        <h3 class="blog-title">App development</h3>
-                        <p class="blog-excerpt">This Apps development got started</p>
+                <div class="update-log-grid">
+                    <div class="update-log-card">
+                        <div class="update-log-date">November 25, 2024</div>
+                        <h3 class="update-log-title">App development</h3>
+                        <p class="update-log-excerpt">Added Basic functionality to the App & first Applications</p>
+                    </div>
+                    <div class="update-log-card">
+                        <div class="update-log-date">November 26, 2024</div>
+                        <h3 class="update-log-title">Customized Apps</h3>
+                        <p class="update-log-excerpt">Removed dummy app content and replaced with real information</p>
+                    </div>
+                    <div class="update-log-card">
+                        <div class="update-log-date">November 27, 2024</div>
+                        <h3 class="update-log-title">Added Spotify Widget</h3>
+                        <p class="update-log-excerpt">Added Spotify Widget (the one you see in top right)</p>
+                    </div>
+                    <div class="update-log-card">
+                        <div class="update-log-date">November 28, 2024</div>
+                        <h3 class="update-log-title">Added Spotify Widget/App</h3>
+                        <p class="update-log-excerpt">Added Spotify Widget (the one you see in top right)</p>
+                    </div>
+                    <div class="update-log-card">
+                        <div class="update-log-date">November 29, 2024</div>
+                        <h3 class="update-log-title">Added Weather Widget/App</h3>
+                        <p class="update-log-excerpt">Added Weather Widget (the one you see in top right)</p>
                     </div>
                 </div>
             </div>
         </div>
 
 
-
-        <style>
-            .browser-toolbar {
-                display: flex;
-                align-items: center;
-                padding: 8px;
-                background: rgba(255, 255, 255, 0.1);
-                gap: 8px;
-            }
-            
-            .nav-button {
-                background: none;
-                border: none;
-                color: white;
-                padding: 4px 8px;
-                border-radius: 4px;
-                cursor: pointer;
-                transition: background 0.3s ease;
-            }
-            
-            .nav-button:hover {
-                background: rgba(255, 255, 255, 0.1);
-            }
-            
-            .url-bar {
-                flex: 1;
-                display: flex;
-                background: rgba(0, 0, 0, 0.3);
-                border-radius: 4px;
-                padding: 4px;
-            }
-            
-            .url-bar input {
-                flex: 1;
-                background: none;
-                border: none;
-                color: white;
-                padding: 4px 8px;
-                outline: none;
-            }
-            
-            .url-bar button {
-                background: none;
-                border: none;
-                color: white;
-                padding: 4px 8px;
-                cursor: pointer;
-                border-radius: 4px;
-                transition: background 0.3s ease;
-            }
-            
-            .url-bar button:hover {
-                background: rgba(255, 255, 255, 0.1);
-            }
-            
-            .browser-content {
-                position: relative;
-                height: calc(100% - 86px);
-                background: white;
-                color: black;
-                overflow: auto;
-            }
-            
-            #webpage-content {
-                padding: 20px;
-            }
-            
-            #loading-overlay {
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background: rgba(0, 0, 0, 0.7);
-                display: none;
-                justify-content: center;
-                align-items: center;
-            }
-            
-            .spinner {
-                width: 40px;
-                height: 40px;
-                border: 4px solid rgba(255, 255, 255, 0.3);
-                border-radius: 50%;
-                border-top-color: white;
-                animation: spin 1s linear infinite;
-            }
-            
-            @keyframes spin {
-                to { transform: rotate(360deg); }
-            }
-            
-            #error-message {
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                background: rgba(255, 0, 0, 0.2);
-                padding: 16px;
-                border-radius: 4px;
-                color: white;
-                display: none;
-            }
-            </style>
-            
+        <div class="window" id="browser" style="width: 800px; height: 600px; top: 60px; left: 140px;">
+            <div class="window-header">
+                <div class="window-title">
+                    <ion-icon name="globe"></ion-icon>
+                    Web Browser
+                </div>
+                <div class="window-controls">
+                    <button class="window-button window-minimize"></button>
+                    <button class="window-button window-maximize"></button>
+                    <button class="window-button window-close"></button>
+                </div>
+            </div>
+            <div class="browser-toolbar">
+                <button class="nav-button" id="back-button">
+                    <ion-icon name="arrow-back"></ion-icon>
+                </button>
+                <button class="nav-button" id="forward-button">
+                    <ion-icon name="arrow-forward"></ion-icon>
+                </button>
+                <button class="nav-button" id="refresh-button">
+                    <ion-icon name="refresh"></ion-icon>
+                </button>
+                <div class="url-bar">
+                    <input type="text" id="url-input" placeholder="Enter URL">
+                    <button id="go-button">
+                        <ion-icon name="arrow-forward"></ion-icon>
+                    </button>
+                </div>
+            </div>
+            <div class="browser-content">
+                <iframe id="browser-iframe" sandbox="allow-same-origin allow-scripts allow-forms" style="width: 100%; height: 100%; border: none;"></iframe>
+                <div id="loading-overlay">
+                    <div class="spinner"></div>
+                </div>
+                <div id="error-message"></div>
+            </div>
+        </div>
 
 
-<div class="window" id="browser" style="width: 800px; height: 600px; top: 60px; left: 140px;">
-    <div class="window-header">
-        <div class="window-title">
-            <ion-icon name="globe"></ion-icon>
-            Web Browser
+
+        <div class="window" id="spotify" style="width: 800px; height: 600px; top: 70px; left: 160px;">
+            <div class="window-header">
+                <div class="window-title">
+                    <ion-icon name="musical-notes"></ion-icon>
+                    Spotify
+                </div>
+                <div class="window-controls">
+                    <button class="window-button window-minimize"></button>
+                    <button class="window-button window-maximize"></button>
+                    <button class="window-button window-close"></button>
+                </div>
+            </div>
+            <div class="window-content">
+                <div class="spotify-app">
+                    <div class="spotify-sidebar">
+                        <div class="spotify-nav">
+                            <div class="nav-item active" data-view="home">
+                                <ion-icon name="home"></ion-icon>
+                                Home
+                            </div>
+                            <div class="nav-item" data-view="recent">
+                                <ion-icon name="time"></ion-icon>
+                                Recently Played
+                            </div>
+                            <div class="nav-item" data-view="playlists">
+                                <ion-icon name="list"></ion-icon>
+                                Playlists
+                            </div>
+                            <div class="nav-item" data-view="top">
+                                <ion-icon name="stats-chart"></ion-icon>
+                                Top Tracks
+                            </div>
+                        </div>
+                    </div>
+                    <div class="spotify-main">
+                        <div class="view" id="home-view">
+                            <div class="now-playing">
+                                <h2>Now Playing</h2>
+                                <div class="now-playing-content">
+                                    <div class="track-art"></div>
+                                    <div class="track-info">
+                                        <div class="track-name">Not Playing</div>
+                                        <div class="track-artist"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="recently-played-preview">
+                                <h2>Recently Played</h2>
+                                <div class="track-grid"></div>
+                            </div>
+                        </div>
+                        <div class="view hidden" id="recent-view">
+                            <h2>Recently Played</h2>
+                            <div class="track-list"></div>
+                        </div>
+                        <div class="view hidden" id="playlists-view">
+                            <h2>Playlists</h2>
+                            <div class="playlist-grid"></div>
+                        </div>
+                        <div class="view hidden" id="top-view">
+                            <h2>Top Tracks</h2>
+                            <div class="track-list"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="window-controls">
-            <button class="window-button window-minimize"></button>
-            <button class="window-button window-maximize"></button>
-            <button class="window-button window-close"></button>
+
+        <div class="window" id="settings" style="width: 900px; height: 600px; top: 50px; left: 100px;">
+            <div class="window-header">
+                <div class="window-title">
+                    <ion-icon name="settings-outline"></ion-icon>
+                    Settings
+                </div>
+                <div class="window-controls">
+                    <button class="window-button window-minimize"></button>
+                    <button class="window-button window-maximize"></button>
+                    <button class="window-button window-close"></button>
+                </div>
+            </div>
+            <div class="settings-content">
+                <div class="settings-sidebar">
+                    <div class="settings-search">
+                        <ion-icon name="search"></ion-icon>
+                        <input type="text" placeholder="Search settings...">
+                    </div>
+                    <div class="settings-tabs">
+                        <button class="settings-tab active" data-tab="general">
+                            <ion-icon name="settings"></ion-icon>
+                            General
+                        </button>
+                        <button class="settings-tab" data-tab="appearance">
+                            <ion-icon name="color-palette"></ion-icon>
+                            Appearance
+                        </button>
+                        <button class="settings-tab" data-tab="privacy">
+                            <ion-icon name="shield"></ion-icon>
+                            Privacy
+                        </button>
+                        <button class="settings-tab" data-tab="sound">
+                            <ion-icon name="volume-high"></ion-icon>
+                            Sound
+                        </button>
+                        <button class="settings-tab" data-tab="power">
+                            <ion-icon name="battery-full"></ion-icon>
+                            Power
+                        </button>
+                        <button class="settings-tab" data-tab="network">
+                            <ion-icon name="wifi"></ion-icon>
+                            Network
+                        </button>
+                        <button class="settings-tab" data-tab="about">
+                            <ion-icon name="information-circle"></ion-icon>
+                            About
+                        </button>
+                    </div>
+                </div>
+                <div class="settings-panels">
+                    <div class="settings-panel active" data-panel="general">
+                        <h2>General Settings</h2>
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <h3>Wi-Fi</h3>
+                                <p>Enable/Disable your Wi-Fi connection</p>
+                            </div>
+                            <div class="toggle">
+                                <div class="toggle-slider" onclick="toggleWifi()" ></div>
+                            </div>
+                        </div>
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <h3>System Updates</h3>
+                                <p>Check for updates automatically</p>
+                            </div>
+                            <div class="toggle active">
+                                <div class="toggle-slider"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="settings-panel" data-panel="appearance"></div>
+                        <h2>Appearance Settings</h2><br>
+                        <h3>Wallpapers<span style="font-size: x-small;"> (click to change) </span></h3><br>
+                        <div class="setting-item">
+                            <img src="/static/wallpapers/noble-dark.png" width="300" height="auto" alt="Wallpaper" class="settings-image" onclick="changeWallpaper('/static/wallpapers/noble-dark.png')">
+                            <div class="wallpaper-info">
+                                <h3 class="wallpaper-title">Noble Dark</h3>
+                                <p>Dark theme with a touch of nobility</p>
+                                <p>[The Offical Ubuntu Wallpaper]</p>
+                            </div>
+                        </div>
+                        <div class="setting-item">
+                            <img src="/static/wallpapers/Technology.jpg" width="300" height="auto" alt="Wallpaper" class="settings-image"onclick="changeWallpaper('/static/wallpapers/Technology.jpg')">
+                            <div class="wallpaper-info">
+                                <h3 class="wallpaper-title">Technology</h3>
+                                <p>A futuristic view of wallpaper</p>
+                            </div>
+                        </div>
+                        <div class="setting-item">
+                            <div class="wallpaper-info">
+                                <h3 class="wallpaper-title">Custom Wallpaper</h3>
+                                <p>Upload your own wallpaper</p>
+                            </div>
+                            <div class="wallpaper-upload-container">
+                                <input type="file" id="wallpaper-upload" accept="image/*">
+                                <ion-icon name="cloud-upload"></ion-icon>
+                                <span>Click to Upload</span>
+                            </div>
+                            <div id="wallpaper-preview" style="display: none;">
+                                <img width="300" height="auto" class="settings-image">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="browser-toolbar">
-        <button class="nav-button" id="back-button">
-            <ion-icon name="arrow-back"></ion-icon>
-        </button>
-        <button class="nav-button" id="forward-button">
-            <ion-icon name="arrow-forward"></ion-icon>
-        </button>
-        <button class="nav-button" id="refresh-button">
-            <ion-icon name="refresh"></ion-icon>
-        </button>
-        <div class="url-bar">
-            <input type="text" id="url-input" placeholder="Enter URL">
-            <button id="go-button">
-                <ion-icon name="arrow-forward"></ion-icon>
-            </button>
-        </div>
-    </div>
-    <div class="browser-content">
-        <iframe id="browser-iframe" sandbox="allow-same-origin allow-scripts allow-forms" style="width: 100%; height: 100%; border: none;"></iframe>
-        <div id="loading-overlay">
-            <div class="spinner"></div>
-        </div>
-        <div id="error-message"></div>
-    </div>
-</div>
+
+
 
 
 
@@ -1882,17 +2995,24 @@
             icon.addEventListener('click', () => {
                 const windowId = icon.dataset.window;
                 const window = document.getElementById(windowId);
+                const appsOverview = document.querySelector('.apps-overview');
                 
-                if (window.classList.contains('active')) {
-                    window.classList.add('closing');
-                    window.addEventListener('animationend', () => {
-                        window.classList.remove('active', 'closing');
-                        activeWindows.delete(windowId);
-                    }, { once: true });
-                } else {
-                    window.classList.add('active');
-                    window.style.zIndex = ++zIndex;
-                    activeWindows.add(windowId);
+                if (appsOverview.classList.contains('active')) {
+                    appsOverview.classList.remove('active');
+                }
+                
+                if (!window.classList.contains('closing')) {
+                    if (window.classList.contains('active')) {
+                        window.classList.add('closing');
+                        window.addEventListener('animationend', () => {
+                            window.classList.remove('active', 'closing');
+                            activeWindows.delete(windowId);
+                        }, { once: true });
+                    } else {
+                        window.classList.add('active');
+                        window.style.zIndex = ++zIndex;
+                        activeWindows.add(windowId);
+                    }
                 }
             });
         });
@@ -1964,6 +3084,9 @@
             item.addEventListener('click', () => {
                 const windowId = item.dataset.window;
                 const window = document.getElementById(windowId);
+                
+                window.classList.remove('closing');
+                
                 window.classList.add('active');
                 window.style.zIndex = ++zIndex;
                 appsOverview.classList.remove('active');
@@ -2018,124 +3141,263 @@ document.addEventListener('DOMContentLoaded', checkBootStatus);
 
 
 
+
 let systemState = {
     wifiEnabled: true,
     bluetoothEnabled: true,
-    nightLight: false,
-    darkMode: false,
-    doNotDisturb: false,
-    brightness: 100,
-    volume: 60
+    systemUpdates: true,
+    automaticBrightness: false,
+    location: true,
+    notifications: true,
+    analytics: false,
+    battery: 'balanced',
+    language: 'en',
+    dateFormat: '24h'
 };
 
-
-document.addEventListener('DOMContentLoaded', () => {
-    const systemIndicators = document.querySelector('.system-indicators');
+document.addEventListener('click', (e) => {
     const controlCenter = document.querySelector('.control-center');
+    const systemIndicators = document.querySelector('.system-indicators');
     
-    systemIndicators.addEventListener('click', (e) => {
-        if (!e.target.closest('.power-btn')) {
-            controlCenter.classList.toggle('active');
+    if (!controlCenter.contains(e.target) && 
+        !systemIndicators.contains(e.target)) {
+        controlCenter.classList.remove('active');
+    }
+});
+
+function initControlCenter() {
+    const controlCenter = document.querySelector('.control-center');
+    const systemIndicators = document.querySelector('.system-indicators');
+    const icons = Array.from(systemIndicators.children).filter(el => !el.classList.contains('power-btn'));
+    
+    if (!window.systemState) {
+        window.systemState = {};
+    }
+    window.systemState.brightness = window.systemState.brightness || 100;
+    window.systemState.volume = window.systemState.volume || 50;
+    window.systemState.wifi = window.systemState.wifi || false;
+    window.systemState.bluetooth = window.systemState.bluetooth || false;
+    window.systemState.nightlight = window.systemState.nightlight || false;
+    window.systemState.darkmode = window.systemState.darkmode || false;
+    window.systemState.dnd = window.systemState.dnd || false;
+
+    document.querySelectorAll('.quick-toggle').forEach(toggle => {
+        toggle.addEventListener('click', (e) => {
             e.stopPropagation();
+            const feature = toggle.dataset.feature;
+            window.systemState[feature] = !window.systemState[feature];
+            toggle.classList.toggle('active', window.systemState[feature]);
+            
+            if (feature === 'wifi') {
+                const wifiIcon = systemIndicators.querySelector('ion-icon[name="wifi"]');
+                wifiIcon.classList.toggle('hidden', !window.systemState.wifi);
+            } else if (feature === 'bluetooth') {
+                const bluetoothIcon = systemIndicators.querySelector('ion-icon[name="bluetooth"]');
+                bluetoothIcon.classList.toggle('hidden', !window.systemState.bluetooth);
+            }
+            
+            console.log(`${feature} state:`, window.systemState[feature]);
+        });
+    });
+
+    const brightnessSlider = document.querySelector('.brightness-slider');
+    const brightnessOverlay = document.querySelector('.brightness-overlay');
+    
+    brightnessSlider.addEventListener('input', (e) => {
+        e.stopPropagation();
+        window.systemState.brightness = parseInt(e.target.value);
+        brightnessOverlay.style.backgroundColor = `rgba(0, 0, 0, ${1 - window.systemState.brightness/100})`;
+        console.log('Brightness:', window.systemState.brightness);
+    });
+
+    const volumeSlider = document.querySelector('.volume-slider');
+    const volumeIcon = systemIndicators.querySelector('ion-icon[name^="volume"]');
+    const volumeIcon2= document.getElementById("volume-control").querySelector('ion-icon[name^="volume"]');
+    volumeSlider.addEventListener('input', (e) => {
+        e.stopPropagation();
+        window.systemState.volume = parseInt(e.target.value);
+        
+        if (window.systemState.volume === 0) {
+            volumeIcon.setAttribute('name', 'volume-mute');
+            volumeIcon2.setAttribute('name', 'volume-mute');
+        } else if (window.systemState.volume < 30) {
+            volumeIcon.setAttribute('name', 'volume-low');
+            volumeIcon2.setAttribute('name', 'volume-low');
+        } else if (window.systemState.volume < 70) {
+            volumeIcon.setAttribute('name', 'volume-medium');
+            volumeIcon2.setAttribute('name', 'volume-medium');
+        } else {
+            volumeIcon.setAttribute('name', 'volume-high');
+            volumeIcon2.setAttribute('name', 'volume-high');
+        }
+        console.log('Volume:', window.systemState.volume);
+    });
+
+    brightnessSlider.value = window.systemState.brightness;
+    volumeSlider.value = window.systemState.volume;
+    brightnessOverlay.style.backgroundColor = `rgba(0, 0, 0, ${1 - window.systemState.brightness/100})`;
+
+    document.querySelectorAll('.quick-toggle').forEach(toggle => {
+        const feature = toggle.dataset.feature;
+        if (window.systemState[feature]) {
+            toggle.classList.add('active');
         }
     });
-    
+
+    icons.forEach(icon => {
+        icon.addEventListener('click', (e) => {
+            e.stopPropagation();
+            controlCenter.classList.toggle('active');
+        });
+    });
+
     document.addEventListener('click', (e) => {
-        if (!e.target.closest('.control-center') && 
-            !e.target.closest('.system-indicators')) {
+        if (!controlCenter.contains(e.target) && 
+            !systemIndicators.contains(e.target)) {
             controlCenter.classList.remove('active');
         }
     });
+}
 
-    function updateSystemIndicators() {
-        const wifiIcon = document.querySelector('.system-indicators ion-icon[name="wifi"]');
-        const bluetoothIcon = document.querySelector('.system-indicators ion-icon[name="bluetooth"]');
-        const volumeIcon = document.querySelector('.system-indicators ion-icon[name="volume-high"]');
-        
-        if (systemState.wifiEnabled) {
-            wifiIcon.classList.remove('hidden');
-        } else {
-            wifiIcon.classList.add('hidden');
-        }
-        
-        if (systemState.bluetoothEnabled) {
-            bluetoothIcon.classList.remove('hidden');
-        } else {
-            bluetoothIcon.classList.add('hidden');
-        }
-        
-        if (systemState.volume === 0) {
-            volumeIcon.setAttribute('name', 'volume-mute');
-        } else if (systemState.volume < 30) {
-            volumeIcon.setAttribute('name', 'volume-low');
-        } else if (systemState.volume < 70) {
-            volumeIcon.setAttribute('name', 'volume-medium');
-        } else {
-            volumeIcon.setAttribute('name', 'volume-high');
-        }
+
+const systemIndicators = document.querySelector('.system-indicators');
+if (!systemIndicators.querySelector('[name="bluetooth"]')) {
+    const wifiIcon = systemIndicators.querySelector('[name="wifi"]');
+    const bluetoothIcon = document.createElement('ion-icon');
+    bluetoothIcon.setAttribute('name', 'bluetooth');
+    wifiIcon.parentNode.insertBefore(bluetoothIcon, wifiIcon.nextSibling);
+}
+
+function updateSystemIndicators() {
+    const wifiIcon = document.querySelector('.system-indicators ion-icon[name="wifi"]');
+    const bluetoothIcon = document.querySelector('.system-indicators ion-icon[name="bluetooth"]');
+    const volumeIcon = document.querySelector('.system-indicators ion-icon[name="volume-high"]');
+    
+    wifiIcon.classList.toggle('hidden', !systemState.wifiEnabled);
+    bluetoothIcon.classList.toggle('hidden', !systemState.bluetoothEnabled);
+    
+    if (systemState.volume === 0) {
+        volumeIcon.setAttribute('name', 'volume-mute');
+    } else if (systemState.volume < 30) {
+        volumeIcon.setAttribute('name', 'volume-low');
+    } else if (systemState.volume < 70) {
+        volumeIcon.setAttribute('name', 'volume-medium');
+    } else {
+        volumeIcon.setAttribute('name', 'volume-high');
     }
+}
 
+function handleSettingToggle(settingId) {
+    const toggle = document.querySelector(`#${settingId}`);
+    if (toggle) {
+        toggle.addEventListener('click', () => {
+            const setting = settingId.replace('toggle-', '');
+            systemState[setting] = !systemState[setting];
+            toggle.classList.toggle('active', systemState[setting]);
+            
+            switch(setting) {
+                case 'wifiEnabled':
+                case 'bluetoothEnabled':
+                    updateSystemIndicators();
+                    updateToggles();
+                    break;
+                case 'systemUpdates':
+                    break;
+                case 'automaticBrightness':
+                    if (systemState.automaticBrightness) {
+                        alert('How do you imagine this to work in a browser?');
+                    }
+                    break;
+            }
+        });
+    }
+}
+
+// Initialize general settings panel
+function initializeGeneralSettings() {
+    const generalPanel = document.querySelector('[data-panel="general"]');
+    if (!generalPanel) return;
+
+    generalPanel.innerHTML = `
+        <h2>General Settings</h2>
+        <div class="setting-item">
+            <div class="setting-info">
+                <h3>Wi-Fi</h3>
+                <p>Enable/Disable your Wi-Fi connection</p>
+            </div>
+            <div class="toggle ${systemState.wifiEnabled ? 'active' : ''}" id="toggle-wifiEnabled">
+                <div class="toggle-slider"></div>
+            </div>
+        </div>
+        <div class="setting-item">
+            <div class="setting-info">
+                <h3>Bluetooth</h3>
+                <p>Enable/Disable your Bluetooth connection</p>
+            </div>
+            <div class="toggle ${systemState.bluetoothEnabled ? 'active' : ''}" id="toggle-bluetoothEnabled">
+                <div class="toggle-slider"></div>
+            </div>
+        </div>
+        <div class="setting-item">
+            <div class="setting-info">
+                <h3>System Updates</h3>
+                <p>Check for updates automatically</p>
+            </div>
+            <div class="toggle ${systemState.systemUpdates ? 'active' : ''}" id="toggle-systemUpdates">
+                <div class="toggle-slider"></div>
+            </div>
+        </div>
+        <div class="setting-item">
+            <div class="setting-info">
+                <h3>Automatic Brightness</h3>
+                <p>Adjust brightness based on ambient light</p>
+            </div>
+            <div class="toggle ${systemState.automaticBrightness ? 'active' : ''}" id="toggle-automaticBrightness">
+                <div class="toggle-slider"></div>
+            </div>
+        </div>
+    `;
+
+    // Initialize all toggles
+    ['wifiEnabled', 'bluetoothEnabled', 'systemUpdates', 'automaticBrightness'].forEach(setting => {
+        handleSettingToggle(`toggle-${setting}`);
+    });
+}
+
+// Add general settings initialization to the main settings init function
+const originalInitSettings = initSettings;
+initSettings = function() {
+    originalInitSettings();
+    initializeGeneralSettings();
+    updateSystemIndicators();
+}
+
+// Update the existing updateToggles function to include new settings
 function updateToggles() {
     document.querySelectorAll('.quick-toggle').forEach(toggle => {
         const feature = toggle.dataset.feature;
         
-        if (feature === 'wifi') {
-            toggle.classList.toggle('active', systemState.wifiEnabled);
-        }
-        else if (feature === 'bluetooth') {
-            toggle.classList.toggle('active', systemState.bluetoothEnabled);
-        }
-        else if (systemState[feature] !== undefined) {
-            toggle.classList.toggle('active', systemState[feature]);
+        switch(feature) {
+            case 'wifi':
+                toggle.classList.toggle('active', systemState.wifiEnabled);
+                break;
+            case 'bluetooth':
+                toggle.classList.toggle('active', systemState.bluetoothEnabled);
+                break;
+            default:
+                if (systemState[feature] !== undefined) {
+                    toggle.classList.toggle('active', systemState[feature]);
+                }
         }
     });
 }
-    
-    document.querySelectorAll('.quick-toggle').forEach(toggle => {
-        toggle.addEventListener('click', () => {
-            const feature = toggle.dataset.feature;
-            
-            if (feature === 'wifi') {
-                systemState.wifiEnabled = !systemState.wifiEnabled;
-            }
-            else if (feature === 'bluetooth') {
-                systemState.bluetoothEnabled = !systemState.bluetoothEnabled;
-            }
-            else {
-                systemState[feature] = !systemState[feature];
-            }
-            
-            updateToggles();
-            updateSystemIndicators();
-            
-            if (feature === 'nightlight') {
-                document.getElementsByClassName('brightness-overlay')[0].style.filter = systemState.nightLight ? 
-                    'sepia(20%) brightness(90%)' : '';
-            }
-            
-            if (feature === 'darkmode') {
-                document.body.style.backgroundColor = systemState.darkMode ? 
-                    '#1a1a1a' : '';
-            }
-        });
-    });
-    
-    const brightnessSlider = document.querySelector('.brightness-slider');
-    brightnessSlider.addEventListener('input', (e) => {
-        systemState.brightness = parseInt(e.target.value);
-        document.getElementsByClassName('brightness-overlay')[0].style.backgroundColor = `rgba(0, 0, 0, ${1 - systemState.brightness / 100})`;
-    });
-    
-    const volumeSlider = document.querySelector('.volume-slider');
-    volumeSlider.addEventListener('input', (e) => {
-        systemState.volume = parseInt(e.target.value);
-        updateSystemIndicators();
-    });
-    
-    updateToggles();
+
+// Initialize event listeners
+document.addEventListener('DOMContentLoaded', () => {
     updateSystemIndicators();
-});
-        
+    updateToggles();
+    initControlCenter();
+});        
 
 
 function updateSpotifyWidget() {
@@ -2303,9 +3565,7 @@ function initBrowser() {
     });
 
     makeWindowDraggable(browserWindow);
-    browserWindow.addEventListener('mousedown', () => {
-        browserWindow.style.zIndex = ++zIndex;
-    });
+    
 
     const closeBtn = browserWindow.querySelector('.window-close');
     closeBtn.addEventListener('click', () => {
@@ -2327,22 +3587,533 @@ function openInBrowser(url) {
     }
 
 
-const dockIcon = document.querySelector('[data-window="browser"]');
 
-dockIcon.addEventListener('click', () => {
-    const browser = document.getElementById('browser');
-    if (browser.classList.contains('active')) {
-        browser.classList.add('closing');
-        browser.addEventListener('animationend', () => {
-            browser.classList.remove('active', 'closing');
+
+document.addEventListener('DOMContentLoaded', initBrowser);
+
+
+function initSpotifyApp() {
+    const spotifyWindow = document.getElementById('spotify');
+    makeWindowDraggable(spotifyWindow);
+
+    const navItems = document.querySelectorAll('.nav-item');
+    navItems.forEach(item => {
+        item.addEventListener('click', () => {
+            navItems.forEach(i => i.classList.remove('active'));
+            item.classList.add('active');
+            
+            document.querySelectorAll('.view').forEach(v => v.classList.add('hidden'));
+            document.getElementById(`${item.dataset.view}-view`).classList.remove('hidden');
+            
+            updateViewContent(item.dataset.view);
+        });
+    });
+
+    const closeBtn = spotifyWindow.querySelector('.window-close');
+    closeBtn.addEventListener('click', () => {
+        spotifyWindow.classList.add('closing');
+        spotifyWindow.addEventListener('animationend', () => {
+            spotifyWindow.classList.remove('active', 'closing');
         }, { once: true });
-    } else {
-        browser.classList.add('active');
-        browser.style.zIndex = ++zIndex;
+    });
+    
+    
+}
+
+function updateViewContent(view) {
+    switch(view) {
+        case 'home':
+            updateNowPlaying();
+            updateRecentlyPlayedPreview();
+            break;
+        case 'recent':
+            updateRecentlyPlayed();
+            break;
+        case 'playlists':
+            updatePlaylists();
+            break;
+        case 'top':
+            updateTopTracks();
+            break;
+    }
+}
+
+function updateNowPlaying() {
+    fetch('/now-playing')
+        .then(response => response.json())
+        .then(data => {
+            const nowPlaying = document.querySelector('.now-playing-content');
+            if (data.status === 'playing') {
+                nowPlaying.querySelector('.track-art').style.backgroundImage = `url('${data.album_art}')`;
+                nowPlaying.querySelector('.track-name').textContent = data.track_name;
+                nowPlaying.querySelector('.track-artist').textContent = data.artist;
+            }
+        });
+}
+
+function updateRecentlyPlayedPreview() {
+    fetch('/recently-played')
+        .then(response => response.json())
+        .then(data => {
+            const grid = document.querySelector('#home-view .track-grid');
+            grid.innerHTML = '';
+            
+            data.items.slice(0, 6).forEach(track => {
+                grid.insertAdjacentHTML('beforeend', `
+                    <div class="track-item" onclick="window.open('${track.spotify_url}', '_blank')">
+                        <div class="track-item-art" style="background-image: url('${track.album_art}')"></div>
+                        <div class="track-item-name">${track.name}</div>
+                        <div class="track-item-artist">${track.artist}</div>
+                    </div>
+                `);
+            });
+        });
+}
+
+function updateRecentlyPlayed() {
+    fetch('/recently-played')
+        .then(response => response.json())
+        .then(data => {
+            const list = document.querySelector('#recent-view .track-list');
+            list.innerHTML = '';
+            
+            data.items.forEach(track => {
+                list.insertAdjacentHTML('beforeend', `
+                    <div class="track-list-item" onclick="window.open('${track.spotify_url}', '_blank')">
+                        <div class="track-list-art" style="background-image: url('${track.album_art}')"></div>
+                        <div class="track-list-info">
+                            <div class="track-list-name">${track.name}</div>
+                            <div class="track-list-artist">${track.artist}</div>
+                        </div>
+                        <div class="track-list-duration">${track.duration}</div>
+                    </div>
+                `);
+            });
+        });
+}
+
+function updatePlaylists() {
+    fetch('/playlists')
+        .then(response => response.json())
+        .then(data => {
+            const grid = document.querySelector('#playlists-view .playlist-grid');
+            grid.innerHTML = '';
+            
+            data.items.forEach(playlist => {
+                grid.insertAdjacentHTML('beforeend', `
+                    <div class="playlist-item" onclick="window.open('${playlist.spotify_url}', '_blank')">
+                        <div class="playlist-art" style="background-image: url('${playlist.image}')"></div>
+                        <div class="playlist-name">${playlist.name}</div>
+                        <div class="playlist-tracks">${playlist.tracks} tracks</div>
+                    </div>
+                `);
+            });
+        });
+}
+
+function updateTopTracks() {
+    fetch('/top-tracks')
+        .then(response => response.json())
+        .then(data => {
+            const list = document.querySelector('#top-view .track-list');
+            list.innerHTML = '';
+            
+            data.items.forEach((track, index) => {
+                list.insertAdjacentHTML('beforeend', `
+                    <div class="track-list-item" onclick="window.open('${track.spotify_url}', '_blank')">
+                        <div class="track-list-art" style="background-image: url('${track.album_art}')"></div>
+                        <div class="track-list-info">
+                            <div class="track-list-name">${track.name}</div>
+                            <div class="track-list-artist">${track.artist}</div>
+                        </div>
+                        <div class="track-list-duration">${track.duration}</div>
+                    </div>
+                `);
+            });
+        });
+}
+
+document.addEventListener('DOMContentLoaded', () => {initSpotifyApp();});
+
+
+
+
+
+
+
+
+
+
+
+let currentLocation = 'London';
+
+function updateWeatherWidget() {
+    fetch(`/weather/current/${encodeURIComponent(currentLocation)}`)
+        .then(response => response.json())
+        .then(data => {
+            const weatherContent = document.querySelector('.weather-widget-content');
+            weatherContent.innerHTML = `
+                <div class="weather-widget-main">
+                    <div>
+                        <div class="weather-temp">${data.current.temp_c}°C</div>
+                        <div class="weather-description">${data.current.condition.text}</div>
+                        <div class="weather-details">
+                            <span>Humidity: ${data.current.humidity}%</span>
+                            <span>Wind: ${data.current.wind_kph} km/h</span>
+                        </div>
+                    </div>
+                    <img src="${data.current.condition.icon}" alt="weather icon" style="width: 64px; height: 64px;" draggable="false">
+                </div>
+            `;
+        })
+        .catch(error => {
+            console.error('Error fetching weather:', error);
+            document.querySelector('.weather-widget-content').innerHTML = `
+                <div class="weather-loading">Failed to load weather data</div>
+            `;
+        });
+}
+
+function updateWeatherApp() {
+    Promise.all([
+        fetch(`/weather/current/${encodeURIComponent(currentLocation)}`),
+        fetch(`/weather/forecast/${encodeURIComponent(currentLocation)}`)
+    ])
+        .then(responses => Promise.all(responses.map(r => r.json())))
+        .then(([current, forecast]) => {
+            document.querySelector('.weather-location h2').textContent = `${current.location.name}, ${current.location.country}`;
+            document.querySelector('.date').textContent = new Date().toLocaleDateString('en-US', { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+            document.querySelector('.temp').textContent = `${current.current.temp_c}°C`;
+            document.querySelector('.weather-icon').src = current.current.condition.icon;
+            document.querySelector('.weather-icon').draggable = false;
+            document.querySelector('.humidity').textContent = `${current.current.humidity}%`;
+            document.querySelector('.pressure').textContent = `${current.current.pressure_mb} hPa`;
+            document.querySelector('.wind').textContent = `${current.current.wind_kph} km/h`;
+
+            const forecastGrid = document.querySelector('.forecast-grid');
+            forecastGrid.innerHTML = '';
+            
+            forecast.forecast.forecastday.forEach(day => {
+                forecastGrid.insertAdjacentHTML('beforeend', `
+                    <div class="forecast-day">
+                        <div class="forecast-date">${new Date(day.date).toLocaleDateString('en-US', { weekday: 'short' })}</div>
+                        <img src="${day.day.condition.icon}" alt="weather icon" class="forecast-icon" draggable="false">
+                        <div class="forecast-temp">${day.day.avgtemp_c}°C</div>
+                        <div class="forecast-description">${day.day.condition.text}</div>
+                    </div>
+                `);
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching weather:', error);
+        });
+}
+
+function initWeatherApp() {
+    const weatherWindow = document.getElementById('weather');
+    makeWindowDraggable(weatherWindow);
+
+    const searchInput = weatherWindow.querySelector('input');
+    const searchButton = weatherWindow.querySelector('.search-button');
+
+    function handleSearch() {
+        const query = searchInput.value.trim();
+        if (query) {
+            currentLocation = query;
+            updateWeatherApp();
+            updateWeatherWidget();
+        }
+    }
+
+    searchButton.addEventListener('click', handleSearch);
+    searchInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') handleSearch();
+    });
+
+    const closeBtn = weatherWindow.querySelector('.window-close');
+    closeBtn.addEventListener('click', () => {
+        weatherWindow.classList.add('closing');
+        weatherWindow.addEventListener('animationend', () => {
+            weatherWindow.classList.remove('active', 'closing');
+        }, { once: true });
+    });
+
+    updateWeatherApp();
+}
+
+setInterval(updateWeatherWidget, 300000);
+updateWeatherWidget();
+
+document.addEventListener('DOMContentLoaded', initWeatherApp);
+
+
+
+
+
+
+
+
+
+
+
+
+document.querySelector('.suggestion-submit').addEventListener('click', () => {
+    const input = document.querySelector('.suggestion-input');
+    const suggestion = input.value.trim();
+    
+    if (suggestion) {
+        fetch('/suggestions/send', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ suggestion })
+        })
+        .then(response => {
+            if (response.ok) {
+                input.value = '';
+            }
+        })
+        .catch(error => console.error('Error:', error));
     }
 });
 
-document.addEventListener('DOMContentLoaded', initBrowser);
+document.querySelector('.suggestion-input').addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        document.querySelector('.suggestion-submit').click();
+    }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+function initSettings() {
+    const settingsWindow = document.getElementById('settings');
+    makeWindowDraggable(settingsWindow);
+
+    const searchInput = settingsWindow.querySelector('.settings-search input');
+    const tabs = settingsWindow.querySelectorAll('.settings-tab');
+    const panels = settingsWindow.querySelectorAll('.settings-panel');
+    const toggles = settingsWindow.querySelectorAll('.toggle');
+
+    searchInput.addEventListener('input', (e) => {
+        const query = e.target.value.toLowerCase();
+        tabs.forEach(tab => {
+            const text = tab.textContent.toLowerCase();
+            tab.style.display = text.includes(query) ? 'flex' : 'none';
+        });
+    });
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('active'));
+            panels.forEach(p => p.classList.remove('active'));
+            
+            tab.classList.add('active');
+            const panel = settingsWindow.querySelector(`.settings-panel[data-panel="${tab.dataset.tab}"]`);
+            if (panel) panel.classList.add('active');
+        });
+    });
+
+    toggles.forEach(toggle => {
+        toggle.addEventListener('click', () => {
+            toggle.classList.toggle('active');
+        });
+    });
+
+    const closeBtn = settingsWindow.querySelector('.window-close');
+    closeBtn.addEventListener('click', () => {
+        settingsWindow.classList.add('closing');
+        settingsWindow.addEventListener('animationend', () => {
+            settingsWindow.classList.remove('active', 'closing');
+        }, { once: true });
+    });
+}
+
+document.addEventListener('DOMContentLoaded', initSettings);
+
+
+
+let currentFileType = 'image';
+const allowedImageTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+const allowedVideoTypes = ['video/mp4', 'video/webm', 'video/ogg'];
+
+function addFileTypeSelector() {
+    const container = document.querySelector('.wallpaper-upload-container').parentElement;
+    const fileTypeSelect = document.createElement('div');
+    fileTypeSelect.className = 'file-type-select';
+    fileTypeSelect.innerHTML = `
+        <button class="file-type-btn active" data-type="image">Image</button>
+        <button class="file-type-btn" data-type="video">Video</button>
+    `;
+    container.insertBefore(fileTypeSelect, container.firstChild);
+
+    fileTypeSelect.querySelectorAll('.file-type-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            fileTypeSelect.querySelectorAll('.file-type-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentFileType = btn.dataset.type;
+            updateUploadAccept();
+        });
+    });
+}
+
+function updateUploadAccept() {
+    const input = document.getElementById('wallpaper-upload');
+    input.accept = currentFileType === 'image' 
+        ? '.jpg,.jpeg,.png,.gif,.webp' 
+        : '.mp4,.webm,.ogg';
+}
+
+function changeWallpaper(source, type = 'image') {
+    const video = document.getElementById('background-video');
+    const videoContainer = document.getElementById('background-video-container');
+    
+    if (type === 'video') {
+        document.body.style.backgroundImage = 'none';
+        video.src = source;
+        video.style.display = 'block';
+        videoContainer.style.display = 'block';
+        video.play().catch(err => console.log('Video autoplay failed:', err));
+    } else {
+        document.body.style.backgroundImage = `url(${source})`;
+        video.style.display = 'none';
+        videoContainer.style.display = 'none';
+        video.pause();
+        video.src = '';
+    }
+    
+    localStorage.setItem('wallpaperType', type);
+    localStorage.setItem('wallpaper', source);
+}
+
+function handleFileUpload(file) {
+    if (!file) return;
+
+    const isImage = allowedImageTypes.includes(file.type);
+    const isVideo = allowedVideoTypes.includes(file.type);
+
+    if (!isImage && !isVideo) {
+        alert('Please upload a valid image or video file');
+        return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = function(event) {
+        const base64File = event.target.result;
+        localStorage.setItem('customWallpaper', base64File);
+        
+        const preview = document.getElementById('wallpaper-preview');
+        preview.style.display = 'block';
+
+        if (isImage) {
+            preview.innerHTML = `<img src="${base64File}" class="settings-image" onclick="changeWallpaper('${base64File}', 'image')">`;
+            changeWallpaper(base64File, 'image');
+        } else {
+            preview.innerHTML = `<video src="${base64File}" autoplay muted loop class="settings-image" onclick="changeWallpaper('${base64File}', 'video')"></video>`;
+            changeWallpaper(base64File, 'video');
+        }
+    };
+    reader.readAsDataURL(file);
+}
+
+function initializeWallpaper() {
+    const savedWallpaper = localStorage.getItem('wallpaper');
+    const savedWallpaperType = localStorage.getItem('wallpaperType');
+    
+    if (savedWallpaper) {
+        // If there's a saved wallpaper, use it
+        changeWallpaper(savedWallpaper, savedWallpaperType || 'image');
+    } else {
+        // Only set default if no wallpaper is saved
+        changeWallpaper('/static/wallpapers/noble-dark.png', 'image');
+        // Save default wallpaper settings
+        localStorage.setItem('wallpaper', '/static/wallpapers/noble-dark.png');
+        localStorage.setItem('wallpaperType', 'image');
+    }
+}
+
+document.getElementById('wallpaper-upload').addEventListener('change', function(e) {
+    handleFileUpload(e.target.files[0]);
+});
+
+document.querySelector('.wallpaper-upload-container').addEventListener('click', function(e) {
+    if (e.target !== document.getElementById('wallpaper-upload')) {
+        document.getElementById('wallpaper-upload').click();
+    }
+    e.stopPropagation();
+});
+
+function changeWallpaper(source, type = 'image') {
+    // Create video elements if they don't exist
+    if (!document.getElementById('background-video')) {
+        const videoContainer = document.createElement('div');
+        videoContainer.id = 'background-video-container';
+        videoContainer.style.position = 'fixed';
+        videoContainer.style.top = '0';
+        videoContainer.style.left = '0';
+        videoContainer.style.width = '100%';
+        videoContainer.style.height = '100%';
+        videoContainer.style.zIndex = '-1';
+        videoContainer.style.display = 'none';
+
+        const video = document.createElement('video');
+        video.id = 'background-video';
+        video.style.width = '100%';
+        video.style.height = '100%';
+        video.style.objectFit = 'cover';
+        video.autoplay = true;
+        video.loop = true;
+        video.muted = true;
+
+        videoContainer.appendChild(video);
+        document.body.appendChild(videoContainer);
+    }
+
+    const video = document.getElementById('background-video');
+    const videoContainer = document.getElementById('background-video-container');
+    
+    if (type === 'video') {
+        document.body.style.backgroundImage = 'none';
+        video.src = source;
+        video.style.display = 'block';
+        videoContainer.style.display = 'block';
+        video.play().catch(err => console.log('Video autoplay failed:', err));
+    } else {
+        document.body.style.backgroundImage = `url(${source})`;
+        video.style.display = 'none';
+        videoContainer.style.display = 'none';
+        video.pause();
+        video.src = '';
+    }
+    
+    localStorage.setItem('wallpaperType', type);
+    localStorage.setItem('wallpaper', source);
+}
+
+document.querySelector('[data-window="settings"]').addEventListener('click', function() {
+    if (!document.querySelector('.file-type-select')) {
+        addFileTypeSelector();
+        updateUploadAccept();
+    }
+});
+
+document.addEventListener('DOMContentLoaded', initializeWallpaper);
+
     </script>
 </body>
 </html>

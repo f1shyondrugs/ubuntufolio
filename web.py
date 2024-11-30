@@ -6,12 +6,15 @@ from spotipy.oauth2 import SpotifyOAuth
 import requests
 from urllib.parse import urljoin, urlparse
 from bs4 import BeautifulSoup
+from datetime import datetime
+from pathlib import Path
+import base64
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
 
 
-SCOPE = "user-modify-playback-state user-read-playback-state user-read-private streaming"
 
 sp_oauth = SpotifyOAuth(
     client_id=SPOTIPY_CLIENT_ID,
@@ -21,6 +24,12 @@ sp_oauth = SpotifyOAuth(
     cache_path='.spotipyoauthcache',
     show_dialog=True
 )
+
+def milliseconds_to_time(ms):
+    seconds = ms // 1000
+    minutes = seconds // 60
+    seconds = seconds % 60
+    return f"{minutes}:{seconds:02d}"
 
 def get_spotify_client():
     token_info = sp_oauth.get_cached_token()
@@ -84,120 +93,90 @@ def now_playing():
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)})
 
+@app.route('/recently-played')
+def recently_played():
+    sp = get_spotify_client()
+    if not sp:
+        return jsonify({"status": "not_authenticated"})
+    
+    try:
+        results = sp.current_user_recently_played(limit=50)
+        items = [{
+            'name': track['track']['name'],
+            'artist': track['track']['artists'][0]['name'],
+            'album_art': track['track']['album']['images'][0]['url'],
+            'duration': milliseconds_to_time(track['track']['duration_ms']),
+            'spotify_url': track['track']['external_urls']['spotify']
+        } for track in results['items']]
+        
+        return jsonify({"status": "success", "items": items})
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)})
+
+@app.route('/playlists')
+def playlists():
+    sp = get_spotify_client()
+    if not sp:
+        return jsonify({"status": "not_authenticated"})
+    
+    try:
+        results = sp.current_user_playlists()
+        items = [{
+            'name': playlist['name'],
+            'image': playlist['images'][0]['url'] if playlist['images'] else '',
+            'tracks': playlist['tracks']['total'],
+            'spotify_url': playlist['external_urls']['spotify']
+        } for playlist in results['items']]
+        
+        return jsonify({"status": "success", "items": items})
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)})
+
+@app.route('/top-tracks')
+def top_tracks():
+    sp = get_spotify_client()
+    if not sp:
+        return jsonify({"status": "not_authenticated"})
+    
+    try:
+        results = sp.current_user_top_tracks(limit=50, time_range='medium_term')
+        items = [{
+            'name': track['name'],
+            'artist': track['artists'][0]['name'],
+            'album_art': track['album']['images'][0]['url'],
+            'duration': milliseconds_to_time(track['duration_ms']),
+            'spotify_url': track['external_urls']['spotify']
+        } for track in results['items']]
+        
+        return jsonify({"status": "success", "items": items})
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)})
+
+
+@app.route("/weather/current/<location>")
+def get_current_weather(location):
+    try:
+        response = requests.get(f"https://api.weatherapi.com/v1/current.json?key={WEATHER_API_KEY}&q={location}")
+        return jsonify(response.json())
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route("/weather/forecast/<location>")
+def get_weather_forecast(location):
+    try:
+        response = requests.get(f"https://api.weatherapi.com/v1/forecast.json?key={WEATHER_API_KEY}&q={location}&days=3")
+        return jsonify(response.json())
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
 @app.route('/proxy')
 def proxy():
     url = request.args.get('url')
     if not url:
         return 'No URL provided', 400
     
-    # Whitelist of domains where JavaScript is allowed
-    js_whitelist = {
-    # Your domains
-    'f1shy312.com',
-    'ubuntu.f1shy312.com',
-    'termfolio.f1shy312.com',
-    'www.trynocs.com',
-    'www.trynocs.de',
-    'www.galitube.xyz',
-    'galitube.xyz',
-    
-    # Major tech companies and their services
-    'github.com', 'www.github.com', 'raw.githubusercontent.com', 'gist.github.com',
-    'gitlab.com', 'www.gitlab.com',
-    'google.com', 'www.google.com', 'accounts.google.com', 'docs.google.com', 'drive.google.com', 'mail.google.com', 'calendar.google.com',
-    'microsoft.com', 'www.microsoft.com', 'outlook.com', 'office.com', 'live.com', 'azure.com', 
-    'apple.com', 'www.apple.com', 'icloud.com',
-    'amazon.com', 'www.amazon.com', 'aws.amazon.com', 'cloudfront.net',
-    
-    # Social media
-    'facebook.com', 'www.facebook.com', 'fb.com', 'm.facebook.com',
-    'twitter.com', 'www.twitter.com', 'x.com',
-    'instagram.com', 'www.instagram.com',
-    'linkedin.com', 'www.linkedin.com',
-    'reddit.com', 'www.reddit.com', 'old.reddit.com', 'np.reddit.com',
-    'pinterest.com', 'www.pinterest.com',
-    'tumblr.com', 'www.tumblr.com',
-    
-    # Developer resources
-    'stackoverflow.com', 'www.stackoverflow.com', 'stackexchange.com',
-    'npmjs.com', 'www.npmjs.com',
-    'pypi.org', 'www.pypi.org',
-    'python.org', 'www.python.org', 'docs.python.org',
-    'mozilla.org', 'www.mozilla.org', 'developer.mozilla.org',
-    'w3schools.com', 'www.w3schools.com',
-    'jsdelivr.com', 'www.jsdelivr.com',
-    'cloudflare.com', 'www.cloudflare.com',
-    
-    # Education
-    'coursera.org', 'www.coursera.org',
-    'udemy.com', 'www.udemy.com',
-    'edx.org', 'www.edx.org',
-    'khanacademy.org', 'www.khanacademy.org',
-    'mit.edu', 'www.mit.edu',
-    'stanford.edu', 'www.stanford.edu',
-    
-    # Entertainment
-    'youtube.com', 'www.youtube.com', 'youtu.be',
-    'netflix.com', 'www.netflix.com',
-    'spotify.com', 'www.spotify.com', 'open.spotify.com',
-    'twitch.tv', 'www.twitch.tv',
-    'discord.com', 'www.discord.com',
-    'steamcommunity.com', 'www.steamcommunity.com',
-    'steampowered.com', 'store.steampowered.com',
-    
-    # News and information
-    'medium.com', 'www.medium.com',
-    'wikipedia.org', 'www.wikipedia.org',
-    'nytimes.com', 'www.nytimes.com',
-    'bbc.com', 'www.bbc.com', 'bbc.co.uk',
-    'cnn.com', 'www.cnn.com',
-    'reuters.com', 'www.reuters.com',
-    
-    # Productivity
-    'notion.so', 'www.notion.so',
-    'trello.com', 'www.trello.com',
-    'asana.com', 'www.asana.com',
-    'slack.com', 'www.slack.com',
-    'zoom.us', 'www.zoom.us',
-    
-    # Cloud services
-    'dropbox.com', 'www.dropbox.com',
-    'box.com', 'www.box.com',
-    'digitalocean.com', 'www.digitalocean.com',
-    'heroku.com', 'www.heroku.com',
-    'netlify.com', 'www.netlify.com',
-    'vercel.com', 'www.vercel.com',
-    
-    # Payment services
-    'paypal.com', 'www.paypal.com',
-    'stripe.com', 'www.stripe.com',
-    
-    # Search engines
-    'bing.com', 'www.bing.com',
-    'duckduckgo.com', 'www.duckduckgo.com',
-    'yahoo.com', 'www.yahoo.com',
-    
-    # Tech news
-    'techcrunch.com', 'www.techcrunch.com',
-    'theverge.com', 'www.theverge.com',
-    'wired.com', 'www.wired.com',
-    'engadget.com', 'www.engadget.com',
-    
-    # Web tools
-    'codepen.io', 'www.codepen.io',
-    'jsfiddle.net', 'www.jsfiddle.net',
-    'replit.com', 'www.replit.com',
-    'codesandbox.io', 'www.codesandbox.io',
-    
-    # Documentation
-    'readthedocs.org', 'www.readthedocs.org',
-    'docs.rs', 'www.docs.rs',
-    'jquery.com', 'www.jquery.com',
-    'reactjs.org', 'www.reactjs.org',
-    'vuejs.org', 'www.vuejs.org',
-    'angular.io', 'www.angular.io',
-
-}
+    js_whitelist = json.load(open("static/js_whitelist.json", "r"))
 
     if not urlparse(url).scheme:
         url = 'http://' + url
@@ -216,16 +195,13 @@ def proxy():
         if 'text/html' in content_type:
             soup = BeautifulSoup(response.text, 'html.parser')
             
-            # Handle scripts based on whitelist
             if not js_enabled:
                 for script in soup(["script"]):
                     script.decompose()
             
-            # Remove iframes regardless of whitelist status
             for iframe in soup(["iframe"]):
                 iframe.decompose()
             
-            # Add base tag for relative URLs
             base_tag = soup.new_tag('base', href=url)
             if soup.head:
                 soup.head.insert(0, base_tag)
@@ -234,7 +210,6 @@ def proxy():
                 head.append(base_tag)
                 soup.html.insert(0, head)
             
-            # Add CSP meta tag with appropriate settings
             csp_value = "default-src 'self' 'unsafe-inline' data: *;"
             if js_enabled:
                 csp_value = "default-src 'self' 'unsafe-inline' 'unsafe-eval' data: *;"
@@ -245,7 +220,6 @@ def proxy():
             })
             soup.head.append(meta_csp)
             
-            # Add visual indicator for JavaScript status
             status_div = soup.new_tag('div', attrs={
                 'style': '''
                     position: fixed;
@@ -267,6 +241,17 @@ def proxy():
             
     except Exception as e:
         return str(e), 500
+
+@app.route('/suggestions/send', methods=['POST'])
+def send_suggestion():
+    suggestion = request.json.get('suggestion')
+    if suggestion:
+        url = 'https://discord.com/api/webhooks/1312186950907858964/f_HI6-JsgdAgiyS0rFooDGZFV6cQFxaxzTNHL0k1kYh2CXAamERRtpm892Jci2kV7OqG'
+        data = {'content': "**NEW SUGGESTION: **\n" + suggestion}
+        response = requests.post(url, data=data)
+        if response.status_code == 204:
+            return jsonify({'success': True})
+    return jsonify({'error': 'Failed to send suggestion'}), 400
 
 @app.route('/')
 def index():
