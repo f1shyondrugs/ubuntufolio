@@ -9,7 +9,6 @@ from bs4 import BeautifulSoup
 from datetime import datetime
 from pathlib import Path
 import base64
-from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
